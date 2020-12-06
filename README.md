@@ -1,5 +1,5 @@
-# TNICOOP_Mobile
-TNICOOP_Mobile
+# TNICOOP Mobile
+TNICOOP Mobile
 
 use react-native
 
