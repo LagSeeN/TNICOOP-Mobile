@@ -1,4 +1,4 @@
 # TNICOOP_Mobile
 TNICOOP_Mobile
 
-use react
+use react-native
