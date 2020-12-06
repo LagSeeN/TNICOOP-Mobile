@@ -2,3 +2,5 @@
 TNICOOP_Mobile
 
 use react-native
+
+for TNI Only
