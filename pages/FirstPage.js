@@ -3,80 +3,17 @@ import {
   Text, 
   StyleSheet, 
   View , 
+  SafeAreaView , 
+  TextInput ,
   Image,
   TouchableOpacity,
+  SectionList,
+  FlatList
 } from 'react-native';
 
 import Icon from 'react-native-ionicons';
 
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-
-import FirstPage from './pages/FirstPage';
-
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
-
-const DATA = [
-{
-  title: "A-Host Company Limited",
-  data: ["ตำแหน่งงาน : Programmer , Software Engineer"]
-},
-{
-  title: "E-Stage Company Limited",
-  data: ["ตำแหน่งงาน : Programmer , Web Designer"]
-},
-{
-  title: "E-Stage Company Limited2",
-  data: ["ตำแหน่งงาน : Programmer , Web Designer"]
-},
-{
-  title: "E-Stage Company Limited3",
-  data: ["ตำแหน่งงาน : Programmer , Web Designer"]
-},
-];
-
-function  firstScreenStack({navigation}){
-  return(
-    <Stack.Navigator initialRouteName="FirstPage">
-      <Stack.Screen
-        name = "FirstPage"
-        component = {FirstPage}
-        options={{
-          title : 'รายชื่อบริษัท',
-          headerLeft: ()=> <NavigationDrawerStructor navigationProps={navigation}/>,
-          headerStyle:{
-            backgroundColor:'blue'
-          },
-          headerTintColor:'white',
-          headerTitleStyle:{fontWeight:'bold'},
-          headerTitleAlign:'center',
-        }}
-      />
-    </Stack.Navigator>
-  );
-}//end of firstScreenStack
-
-const NavigationDrawerStructor = (props)=>{
-  const toggleDrawer =()=>{
-    props.navigationProps.toggleDrawer();
-  }
-
-  return(
-    <View style={{flexDirection:'row'}}>
-      <TouchableOpacity onPress = {()=>toggleDrawer()}>
-        <Image 
-        source = {require('./asset/drawerWhite.png')} 
-        style = {{width:25,height:25,marginLeft:5}}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-}// end NavigationDrawerStructor
-
-const App =({  })=>{
+const FirstPage = ({ navigation }) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -123,8 +60,13 @@ const App =({  })=>{
 
   const ItemSeparatorView = () => {
     return (
+      // Flat List Item Separator
       <View
-        style={{ height: 0.5,width: '100%',backgroundColor: '#C8C8C8'}}
+        style={{
+          height: 0.5,
+          width: '100%',
+          backgroundColor: '#C8C8C8',
+        }}
       />
     );
   };
@@ -132,24 +74,64 @@ const App =({  })=>{
   const getItem = (item) => {
     alert('Id : ' + item.id + ' Title : ' + item.title + ' Body : ' + item.body);
   };
-  
-    return (
-      <NavigationContainer>
-      <Drawer.Navigator 
-        drawerContentOptions={{
-          activeTintColor:'blue',
-          itemStyle : {marginVertical:5}
-        }}
-      >
-        <Drawer.Screen 
-          name="FirstPage" 
-          component={firstScreenStack}
-          options={{drawerLabel: 'First page Option'}}
+
+  return (
+   <SafeAreaView style={{flex:1 }}>
+        <View style={styles.container}>
+
+          <View style={{flexDirection: "row"}}>
+            <View  style={styles.inputIcon}>
+              <Image
+                source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vector_search_icon.svg/945px-Vector_search_icon.png'}}
+                style= {styles.ImageIconStyle}
+              />
+              <TextInput 
+                style = {styles.textInput}
+                placeholder = "ค้นหาบริษัท"
+                onChangeText={(text) => searchFilterFunction(text)}
+                value={search}
+                underlineColorAndroid="transparent"
+              />
+            </View>
+            
+            <View  style={styles.inputIcon}>
+              <Image
+                source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vector_search_icon.svg/945px-Vector_search_icon.png'}}
+                style= {styles.ImageIconStyle}
+              />
+              <TextInput 
+                style = {styles.textInput}
+                placeholder = "ตำแหน่งงาน"
+                underlineColorAndroid="transparent"
+              />
+            </View>
+          </View>
+        
+        
+        <TouchableOpacity>
+          <Text style = {styles.searchBtn}>ค้นหา</Text>
+        </TouchableOpacity>
+
+        {/* <SectionList
+          sections={DATA}
+          keyExtractor={(item,index)=>item+index}
+          renderItem={({ item }) => (
+            <Text style={styles.listItem}>{item}</Text>)}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.listHeader}>{title}</Text>
+          )}
+        /> */}
+
+        <FlatList
+          data={filteredDataSource}
+          keyExtractor= {(index,item)=>index.toString()+item}
+          ItemSeparatorComponent={ItemSeparatorView}
+          renderItem={ItemView}
         />
-      </Drawer.Navigator>
-    </NavigationContainer>
-    )
-  
+
+        </View>
+        </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -215,4 +197,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default App;
+export default FirstPage;
