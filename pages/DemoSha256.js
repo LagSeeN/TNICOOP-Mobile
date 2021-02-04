@@ -11,15 +11,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-//import sha1 to use sha1()
-import sha1 from 'sha1';
+//import sha256 to use sha256()
+import sha256 from 'sha256';
 
-const demoSHA1 = () => {
+const demoSHA256 = () => {
   const [inputText, setInputText] = useState('');
   const [text, setText] = useState('');
 
-  const convertsha1 = () => {
-    let encodedVal = sha1(inputText);
+  const convertsha256 = () => {
+    let encodedVal = sha256(inputText);
     setText(encodedVal);
   };
 
@@ -27,11 +27,11 @@ const demoSHA1 = () => {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <Text style={styles.titleStyle}>
-          Example to Convert any Input Value in sha1 in React Native
+          Example to Convert any Input Value in sha256 in React Native
         </Text>
         <Text style={styles.textStyle}>{text}</Text>
         <Text style={styles.textStyle}>
-          Please insert any value to convert in sha1
+          Please insert any value to convert in sha256
         </Text>
         <TextInput
           style={styles.textInputStyle}
@@ -43,16 +43,16 @@ const demoSHA1 = () => {
         />
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={convertsha1}>
+          onPress={convertsha256}>
           <Text style={styles.buttonTextStyle}>
-            Conver to sha1
+            Conver to sha256
           </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
-export default demoSHA1;
+export default demoSHA256;
 
 const styles = StyleSheet.create({
   container: {
