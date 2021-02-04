@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {sha1} from 'react-native-sha1';
 import {
   Text,
   StyleSheet,
@@ -57,7 +56,7 @@ const FirstPage = ({navigation}) => {
   const ItemView = ({item}) => {
     return (
       <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.name.toUpperCase() + ' ' + sha1('sometext')}
+        {item.name.toUpperCase()}
       </Text>
     );
   };
