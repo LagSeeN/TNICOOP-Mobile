@@ -20,7 +20,7 @@ const companyAPI = () => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTeXN0ZW0iLCJlbWFpbCI6Im1vcy5wb3AyQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiIiLCJmYW1pbHlfbmFtZSI6IiIsIlVzZXJJZCI6IjEiLCJVc2VyVHlwZSI6IjEiLCJqdGkiOiJmOTI3MGUyMC0xMDNlLTQ2ZTAtOWMxNy1mMGY0NTk4N2VjYmYiLCJleHAiOjE2MTI0MjI3NjksImlzcyI6Illvc3NhcG9uIEphbnRhcm90ZSAoVE5JQ09PUENvcmUpIiwiYXVkIjoiWW9zc2Fwb24gSmFudGFyb3RlIChUTklDT09QQ29yZSkifQ.iXN4B6-J-HItby5mMKI6X_h12OoDZcwu5htzIthpJ-0',
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTeXN0ZW0iLCJlbWFpbCI6Im1vcy5wb3AyQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiIiLCJmYW1pbHlfbmFtZSI6IiIsIlVzZXJJZCI6IjEiLCJVc2VyVHlwZSI6IjEiLCJqdGkiOiI3ZjJlYWI4Ni1hNTNmLTQ4NmUtODU4ZS0wNGMwYTUxMmZjZTMiLCJleHAiOjE2MTI0NDY5NjYsImlzcyI6Illvc3NhcG9uIEphbnRhcm90ZSAoVE5JQ09PUENvcmUpIiwiYXVkIjoiWW9zc2Fwb24gSmFudGFyb3RlIChUTklDT09QQ29yZSkifQ.p2_wvuRnXVg2maVkcRpH7-sSS0c-mGDmVQV35UyH8Z0',
     },
   })
     .then((response) => response.json())
@@ -179,7 +179,7 @@ const App = ({}) => {
         }}>
         <Drawer.Screen
           name="FirstPage"
-          component={FirstPage}
+          component={firstScreenStack}
           options={{drawerLabel: 'First page Option'}}
         />
       </Drawer.Navigator>
