@@ -9,7 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import FirstPage from './pages/FirstPage';
 import Login from './pages/Login';
-import demoSHA1 from './pages/DemoSha1';
+import demoSHA256 from './pages/DemoSha256';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -100,14 +100,14 @@ function loginScreenStack({navigation}) {
   );
 } //end of firstScreenStack
 
-function demosha1ScreenStack({navigation}) {
+function demosha256ScreenStack({navigation}) {
   return (
-    <Stack.Navigator initialRouteName="demoSHA1">
+    <Stack.Navigator initialRouteName="demoSHA256">
       <Stack.Screen
-        name="demoSHA1"
-        component={demoSHA1}
+        name="demoSHA256"
+        component={demoSHA256}
         options={{
-          title: 'Demo SHA1',
+          title: 'Demo SHA256',
           headerLeft: () => (
             <NavigationDrawerStructor navigationProps={navigation} />
           ),
@@ -202,8 +202,8 @@ const App = ({}) => {
           itemStyle: {marginVertical: 5},
         }}>
         <Drawer.Screen
-          name="demoSHA1"
-          component={demosha1ScreenStack}
+          name="demoSHA256"
+          component={demosha256ScreenStack}
           options={{drawerLabel: 'First page Option'}}
         />
       </Drawer.Navigator>
