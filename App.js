@@ -9,6 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import FirstPage from './pages/FirstPage';
 import Login from './pages/Login';
+import demoSHA1 from './pages/DemoSha1';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -84,6 +85,29 @@ function loginScreenStack({navigation}) {
         component={Login}
         options={{
           title: 'Login',
+          headerLeft: () => (
+            <NavigationDrawerStructor navigationProps={navigation} />
+          ),
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+} //end of firstScreenStack
+
+function demosha1ScreenStack({navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="demoSHA1">
+      <Stack.Screen
+        name="demoSHA1"
+        component={demoSHA1}
+        options={{
+          title: 'Demo SHA1',
           headerLeft: () => (
             <NavigationDrawerStructor navigationProps={navigation} />
           ),
@@ -178,8 +202,8 @@ const App = ({}) => {
           itemStyle: {marginVertical: 5},
         }}>
         <Drawer.Screen
-          name="FirstPage"
-          component={firstScreenStack}
+          name="demoSHA1"
+          component={demosha1ScreenStack}
           options={{drawerLabel: 'First page Option'}}
         />
       </Drawer.Navigator>
