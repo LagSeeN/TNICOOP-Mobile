@@ -1,25 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import {Text, StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-
-import Icon from 'react-native-ionicons';
+import React from 'react';
+import {View, TouchableOpacity} from 'react-native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import FirstPage from './pages/FirstPage';
+import styles from './Style';
+
+import Icon from 'react-native-ionicons';
+
+import SearchCompany from './pages/SearchCompany';
 import Login from './pages/Login';
 import demoSHA256 from './pages/DemoSha256';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function firstScreenStack({navigation}) {
+function searchCompanyScreenStack({navigation}) {
   return (
-    <Stack.Navigator initialRouteName="FirstPage">
+    <Stack.Navigator initialRouteName="SearchCompany">
       <Stack.Screen
-        name="FirstPage"
-        component={FirstPage}
+        name="SearchCompany"
+        component={SearchCompany}
         options={{
           title: 'รายชื่อบริษัท',
           headerLeft: () => (
@@ -35,7 +37,7 @@ function firstScreenStack({navigation}) {
       />
     </Stack.Navigator>
   );
-} //end of firstScreenStack
+}
 
 function loginScreenStack({navigation}) {
   return (
@@ -44,7 +46,7 @@ function loginScreenStack({navigation}) {
         name="Login"
         component={Login}
         options={{
-          title: 'Login',
+          title: 'เข้าสู่ระบบ',
           headerLeft: () => (
             <NavigationDrawerStructor navigationProps={navigation} />
           ),
@@ -58,7 +60,7 @@ function loginScreenStack({navigation}) {
       />
     </Stack.Navigator>
   );
-} //end of firstScreenStack
+} 
 
 function demosha256ScreenStack({navigation}) {
   return (
@@ -81,7 +83,7 @@ function demosha256ScreenStack({navigation}) {
       />
     </Stack.Navigator>
   );
-} //end of firstScreenStack
+}
 
 const NavigationDrawerStructor = (props) => {
   const toggleDrawer = () => {
@@ -91,10 +93,11 @@ const NavigationDrawerStructor = (props) => {
   return (
     <View style={{flexDirection: 'row'}}>
       <TouchableOpacity onPress={() => toggleDrawer()}>
-        <Image
+        <Icon name="menu" style={{color: "#FFFFFF", width: 25, height: 25, marginLeft: 10}}/>
+        {/* <Image
           source={require('./asset/drawerWhite.png')}
           style={{width: 25, height: 25, marginLeft: 5}}
-        />
+        /> */}
       </TouchableOpacity>
     </View>
   );
@@ -113,72 +116,19 @@ const App = ({}) => {
           component={demosha256ScreenStack}
           options={{drawerLabel: 'First page Option'}}
         />
+        <Drawer.Screen
+          name="Login"
+          component={loginScreenStack}
+          options={{drawerLabel: 'Show Login'}}
+        />
+        <Drawer.Screen
+          name="SearchCompany"
+          component={searchCompanyScreenStack}
+          options={{drawerLabel: 'Show Search Company'}}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'blue',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  textInput: {
-    height: 40,
-  },
-  ImageIconStyle: {
-    height: 15,
-    width: 15,
-    resizeMode: 'stretch',
-  },
-  inputIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'blue',
-    borderWidth: 2,
-    borderRadius: 50,
-    paddingLeft: 15,
-    marginVertical: 5,
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  searchBtn: {
-    color: 'white',
-    backgroundColor: 'blue',
-    padding: 10,
-    textAlign: 'center',
-    height: 40,
-    width: 100,
-    borderRadius: 20,
-    marginLeft: 200,
-    marginTop: 5,
-    marginBottom: 30,
-  },
-  listHeader: {
-    color: 'blue',
-    fontSize: 18,
-  },
-  listItem: {
-    color: 'cornflowerblue',
-    fontSize: 15,
-    marginTop: 5,
-    marginBottom: 30,
-  },
-  footer: {
-    height: 60,
-    width: '100%',
-    backgroundColor: 'blue',
-    flexDirection: 'row',
-  },
-});
 
 export default App;

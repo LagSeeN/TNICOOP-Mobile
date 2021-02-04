@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {
   Text,
-  StyleSheet,
   View,
   SafeAreaView,
   TextInput,
-  Image,
   TouchableOpacity,
   SectionList,
   FlatList,
@@ -13,7 +11,9 @@ import {
 
 import Icon from 'react-native-ionicons';
 
-const FirstPage = ({navigation}) => {
+import styles from '../Style';
+
+const SearchCompany = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -90,13 +90,7 @@ const FirstPage = ({navigation}) => {
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.inputIcon}>
-            <Image
-              source={{
-                uri:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vector_search_icon.svg/945px-Vector_search_icon.png',
-              }}
-              style={styles.ImageIconStyle}
-            />
+            <Icon name="search" style={styles.ImageIconStyle}/>
             <TextInput
               style={styles.textInput}
               placeholder="ค้นหาบริษัท"
@@ -107,13 +101,7 @@ const FirstPage = ({navigation}) => {
           </View>
 
           <View style={styles.inputIcon}>
-            <Image
-              source={{
-                uri:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vector_search_icon.svg/945px-Vector_search_icon.png',
-              }}
-              style={styles.ImageIconStyle}
-            />
+            <Icon name="search" style={styles.ImageIconStyle}/>
             <TextInput
               style={styles.textInput}
               placeholder="ตำแหน่งงาน"
@@ -136,7 +124,13 @@ const FirstPage = ({navigation}) => {
           )}
         /> */}
 
-        {/* แก้ตรงนี้นะ*/}
+        {/* 
+        
+          แก้ตรงนี้นะ
+
+          ปัญหาที่พบ ข้อความชื่อบริษัทแสดงอยู่ตรงกลางหน้าจอเสมอ
+        
+        */}
         <FlatList
           data={filteredDataSource}
           keyExtractor={(index, item) => index.toString() + item}
@@ -148,67 +142,5 @@ const FirstPage = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'blue',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  textInput: {
-    height: 40,
-  },
-  ImageIconStyle: {
-    height: 15,
-    width: 15,
-    resizeMode: 'stretch',
-  },
-  inputIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'blue',
-    borderWidth: 2,
-    borderRadius: 50,
-    paddingLeft: 15,
-    marginVertical: 5,
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  searchBtn: {
-    color: 'white',
-    backgroundColor: 'blue',
-    padding: 10,
-    textAlign: 'center',
-    height: 40,
-    width: 100,
-    borderRadius: 20,
-    marginLeft: 200,
-    marginTop: 5,
-    marginBottom: 30,
-  },
-  listHeader: {
-    color: 'blue',
-    fontSize: 18,
-  },
-  listItem: {
-    color: 'cornflowerblue',
-    fontSize: 15,
-    marginTop: 5,
-    marginBottom: 30,
-  },
-  footer: {
-    height: 60,
-    width: '100%',
-    backgroundColor: 'blue',
-    flexDirection: 'row',
-  },
-});
 
-export default FirstPage;
+export default SearchCompany;

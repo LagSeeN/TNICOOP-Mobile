@@ -4,10 +4,13 @@ import {
   StyleSheet,
   View,
   SafeAreaView,
-  TouchableHighlight,
+  TouchableOpacity,
   TextInput,
   Alert,
 } from 'react-native';
+import sha256 from 'sha256';
+import styles from '../Style';
+
 //import DocumentPicker from "react-native-document-picker";
 
 const Login = ({navigation}) => {
@@ -28,7 +31,7 @@ const Login = ({navigation}) => {
       },
       body: JSON.stringify({
         username: username,
-        password: password,
+        password: sha256(password),
       }),
     })
       .then((response) => response.json())
@@ -66,7 +69,7 @@ const Login = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <Text>TNI COOP Application</Text>
+        <Text style={styles.heading}>TNI COOP Application</Text>
         <TextInput
           style={styles.textInput}
           placeholder="Username"
@@ -82,47 +85,24 @@ const Login = ({navigation}) => {
             setPassword(textInputPassword);
           }}
         />
-        <TouchableHighlight
-          style={styles.loginButton}
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => {
             loginAPI();
           }}>
-          <Text>Login</Text>
-        </TouchableHighlight>
+          <Text style={{color: "#FFFFFF"}}>Login</Text>
+        </TouchableOpacity>
 
-        <TouchableHighlight
-          style={styles.loginButton}
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => {
             FileSelecter();
           }}>
           <Text>Do Select File</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  textInput: {
-    paddingLeft: 5,
-    marginTop: 15,
-    height: 40,
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#606070',
-  },
-  loginButton: {
-    backgroundColor: '#01DFA5',
-    borderRadius: 5,
-    padding: 10,
-    elevation: 2,
-  },
-});
