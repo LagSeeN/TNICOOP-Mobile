@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Text,
   StyleSheet,
@@ -8,42 +8,40 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import sha256 from 'sha256';
+
 import styles from '../Style';
+import axios from 'axios';
+
+import { AuthContext } from "../components/context";
 
 //import DocumentPicker from "react-native-document-picker";
 
 const Login = ({navigation}) => {
+  const {signIn} = useContext(AuthContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // const GetSHA1 = (Password) => {
-  //   const result = await RNSimpleCrypto.SHA.sha1(Password);
-  //   return result;
-  // }
+  const loginHandle = (username, password) => {
+    signIn(username, password);
+  }
 
   const loginAPI = () => {
-    fetch('https://yostem.ddns.net:8393/api/Users/authentication', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    axios
+      .post("https://yostem.ddns.net:8393/api/Users/authentication", {
         username: username,
-        password: sha256(password),
-      }),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        Alert.alert(responseData.title,responseData.message);
-        Alert.alert("Your role",responseData.permissionDesc);
-        console.log('RESULTS HERE:', responseData);
+        password: sha256(password)
+      }).then(response => {
+        alert(response.data.token);
+        navigation.navigate("contentStack", {JWT : response.data.token});
+
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(error => {
+        console.error(error)
+        alert(error);
+      })
   };
+
 
   const FileSelecter = async () =>{
     try {
@@ -88,7 +86,8 @@ const Login = ({navigation}) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            loginAPI();
+            // loginAPI();
+            loginHandle(username, password);
           }}>
           <Text style={{color: "#FFFFFF"}}>Login</Text>
         </TouchableOpacity>
