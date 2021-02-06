@@ -12,7 +12,7 @@ import {
 import styles from '../Style';
 import axios from 'axios';
 
-import { AuthContext } from "../components/context";
+import { AuthContext } from "../components/Context";
 
 //import DocumentPicker from "react-native-document-picker";
 

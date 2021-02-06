@@ -1,11 +1,18 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Text, View ,StyleSheet,TouchableOpacity, Dimensions, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {AuthContext} from '../components/context';
+import {AuthContext} from '../components/Context';
 
 export default function MainScreen({navigation}){
+  const [userData, setUserData] = useState({});
+  AsyncStorage.getItem("userData")
+    .then((data) => {
+      setUserData(JSON.parse(data))
+    });
+
   const DeviceWidth = Dimensions.get('window').width
 
   const { signOut } = useContext(AuthContext);
@@ -16,7 +23,7 @@ export default function MainScreen({navigation}){
             <View style ={{ flex : 1}}>
           <View style={styles.heading}>
             <Text style={styles.headingText}>
-              กัสชมาภรณ์ ลิ้มพงศานุรักษ์
+              {userData.firstname} {userData.lastname}
             </Text>
             <Text style={styles.headingTextTestDate}>
               วันสอบ 29 กุมภาพันธ์ 2561
@@ -24,7 +31,9 @@ export default function MainScreen({navigation}){
             </View>
             <View style={styles.menu}>
                 <TouchableOpacity
-                  style={styles.item}>
+                  style={styles.item}
+                  onPress={() =>navigation.navigate("UserProfile")}
+                  >
                     <Icon name="user" size={60} color="blue"/>  
                   <Text style={styles.itemTitle}>
                     ข้อมูลผู้ใช้
@@ -50,7 +59,9 @@ export default function MainScreen({navigation}){
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  style={styles.item}>
+                  style={styles.item}
+                  onPress={() =>navigation.navigate("Contact")}
+                  >
                     <Icon name="phone" size={60} color="blue"/> 
                   <Text style={styles.itemTitle}>
                     ติดต่อ
@@ -59,7 +70,12 @@ export default function MainScreen({navigation}){
 
                 <TouchableOpacity
                   style={styles.item}
-                  onPress={() => signOut()}
+                  onPress={() => 
+                    {
+                      setUserData({});
+                      signOut();
+                    }
+                  }
                   >
                     <Icon name="sign-out" size={60} color="blue"/> 
                   <Text style={styles.itemTitle}>

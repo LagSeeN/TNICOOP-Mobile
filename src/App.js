@@ -9,18 +9,22 @@ import AsyncStorage from '@react-native-community/async-storage';
 import sha256 from 'sha256';
 import axios from 'axios';
 
-import styles from './Style';
-
 import Icon from 'react-native-ionicons';
 
-import {AuthContext} from './components/context';
+import {AuthContext} from './components/Context';
 
-import MainScreen from './screens/MainScreen';
-import SearchCompany from './screens/SearchCompany';
+import Contact from './screens/Contact'
 import Login from './screens/Login';
+import MainScreen from './screens/MainScreen';
+import UserProfile from './screens/UserProfile'
+import SearchCompany from './screens/SearchCompany';
+
+import styles from './Style';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
+axios.defaults.baseURL = 'https://yostem.ddns.net:8393/api';
 
 function NavigationDrawerStructor(props) {
   const toggleDrawer = () => {
@@ -39,7 +43,7 @@ function NavigationDrawerStructor(props) {
 }
 
 //#region Screen stack
-function mainScreenStack({Navigation}) {
+function mainScreenScreen({Navigation}) {
   return (
     <Stack.Navigator initialRouteName="MainScreen">
       <Stack.Screen
@@ -53,7 +57,27 @@ function mainScreenStack({Navigation}) {
   );
 }
 
-function searchCompanyStack({Navigation}) {
+function userProfileScreen({Navigation}) {
+  return(
+    <Stack.Navigator initialRouteName="UserProfile">
+    <Stack.Screen
+      name="UserProfile"
+      component={UserProfile}
+      options={{
+        title: 'ข้อมูลผู้ใช้',
+        headerStyle: {
+          backgroundColor: 'blue',
+        },
+        headerTintColor: 'white',
+        headerTitleStyle: {fontWeight: 'bold'},
+        headerTitleAlign: 'center',
+      }}
+    />
+  </Stack.Navigator>
+  )
+}
+
+function searchCompanyScreen({Navigation}) {
   return (
     <Stack.Navigator initialRouteName="SearchCompany">
       <Stack.Screen
@@ -61,9 +85,26 @@ function searchCompanyStack({Navigation}) {
         component={SearchCompany}
         options={{
           title: 'รายชื่อบริษัท',
-          headerLeft: () => (
-            <NavigationDrawerStructor navigationProps={Navigation} />
-          ),
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function contactScreen({Navigation}) {
+  return(
+    <Stack.Navigator initialRouteName="Contact">
+      <Stack.Screen
+        name="Contact"
+        component={Contact}
+        options={{
+          title: 'ข้อมูลติดต่อ',
           headerStyle: {
             backgroundColor: 'blue',
           },
@@ -79,22 +120,24 @@ function searchCompanyStack({Navigation}) {
 
 const contentStack = ({route}) => {
   return (
-    <Drawer.Navigator
-      drawerContentOptions={{
-        activeTintColor: 'blue',
-        itemStyle: {marginVertical: 5},
-      }}>
-      <Drawer.Screen
+    <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown: false}}>
+      <Stack.Screen
         name="MainScreen"
-        component={mainScreenStack}
-        options={{drawerLabel: 'หน้าแรก'}}
+        component={mainScreenScreen}
       />
-      <Drawer.Screen
+      <Stack.Screen
         name="SearchCompany"
-        component={searchCompanyStack}
-        options={{drawerLabel: 'ค้นหาบริษัท'}}
+        component={searchCompanyScreen}
       />
-    </Drawer.Navigator>
+      <Stack.Screen
+        name="Contact"
+        component={contactScreen}
+      />
+      <Stack.Screen
+        name="UserProfile"
+        component={userProfileScreen}
+      />
+    </Stack.Navigator>
   );
 };
 
@@ -137,7 +180,7 @@ export default function App() {
       let userToken;
       userToken = null;
       axios
-        .post('https://yostem.ddns.net:8393/api/Users/authentication', {
+        .post('/Users/authentication', {
           username: userName,
           password: sha256(password),
         })
@@ -146,6 +189,7 @@ export default function App() {
           userToken = response.data.token;
           try {
             await AsyncStorage.setItem('userToken', userToken);
+            await AsyncStorage.setItem('userData', JSON.stringify(response.data));
           } catch (e) {
             console.log(e);
           }
@@ -181,7 +225,7 @@ export default function App() {
 
   if (loginState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderColor: "blue"}}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -191,7 +235,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {loginState.userToken !== null ? (
-            <Stack.Screen name="contentStack" component={contentStack} />
+            <Stack.Screen name="contentStack" component={contentStack}/>
           ) : (
             <Stack.Screen name="Login" component={Login} />
           )}

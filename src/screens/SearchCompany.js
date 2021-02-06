@@ -15,38 +15,37 @@ import Icon from 'react-native-ionicons';
 import styles from '../Style';
 
 import axios from 'axios';
+// import {httpClient} from '../components/HttpClient';
 
 const SearchCompany = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
-  const [userToken, setUserToken] = useState(null);
-
-  const getToken = async () => {
-    try {
-      let userToken = (await AsyncStorage.getItem('userToken'));
-      console.log(userToken);
-      return userToken;
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
+    AsyncStorage.getItem('userToken').then((token) => {
+      const headers = {Authorization: `Bearer ${token}`};
       axios
-      .get('https://yostem.ddns.net:8393/api/Companies', {
-        headers: {
-          Authorization: "Bearer " + getToken(), //the token is a variable which holds the token
-        },
-      })
-      .then((response) => {
-        setFilteredDataSource(response.data);
-        setMasterDataSource(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-        alert(error);
-      });
+        .get('/Companies', {headers})
+        .then((response) => {
+          setFilteredDataSource(response.data);
+          setMasterDataSource(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert(error);
+        });
+    });
+    // httpClient
+    //   .get("Companies")
+    //   .then((response) => {
+    //           setFilteredDataSource(response.data);
+    //           setMasterDataSource(response.data);
+    //         })
+    //         .catch((error) => {
+    //           console.error(error);
+    //           alert(error);
+    //         });
   }, []);
 
   const searchFilterFunction = (text) => {
