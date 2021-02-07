@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Text, View ,StyleSheet,TouchableOpacity, Dimensions, SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -8,10 +8,12 @@ import {AuthContext} from '../components/Context';
 
 export default function MainScreen({navigation}){
   const [userData, setUserData] = useState({});
+  useEffect(() => {
   AsyncStorage.getItem("userData")
     .then((data) => {
       setUserData(JSON.parse(data))
     });
+  },[]);
 
   const DeviceWidth = Dimensions.get('window').width
 
@@ -25,9 +27,13 @@ export default function MainScreen({navigation}){
             <Text style={styles.headingText}>
               {userData.firstname} {userData.lastname}
             </Text>
+            { userData.permission === 2 ? 
+            (
             <Text style={styles.headingTextTestDate}>
               วันสอบ 29 กุมภาพันธ์ 2561
             </Text>
+            ): null
+            }
             </View>
             <View style={styles.menu}>
                 <TouchableOpacity
@@ -50,6 +56,17 @@ export default function MainScreen({navigation}){
                   </Text>
                 </TouchableOpacity>
 
+                { userData.permission === 1 ? (
+                <TouchableOpacity
+                  style={styles.item}>
+                    <Icon name="users" size={60} color="blue"/> 
+                  <Text style={styles.itemTitle}>
+                    ข้อมูลนักศึกษา
+                  </Text>
+                </TouchableOpacity>
+                ) : null}
+
+                { userData.permission === 2 ? (
                 <TouchableOpacity
                   style={styles.item}>
                     <Icon name="copy" size={60} color="blue"/> 
@@ -57,7 +74,9 @@ export default function MainScreen({navigation}){
                     ส่งเอกสาร
                   </Text>
                 </TouchableOpacity>
+                ) : null }
 
+                { userData.permission !== 3 ? (
                 <TouchableOpacity
                   style={styles.item}
                   onPress={() =>navigation.navigate("Contact")}
@@ -67,6 +86,7 @@ export default function MainScreen({navigation}){
                     ติดต่อ
                   </Text>
                 </TouchableOpacity>
+                ): null }
 
                 <TouchableOpacity
                   style={styles.item}

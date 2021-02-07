@@ -13,11 +13,12 @@ import Icon from 'react-native-ionicons';
 
 import {AuthContext} from './components/Context';
 
-import Contact from './screens/Contact'
+import Contact from './screens/Contact';
 import Login from './screens/Login';
 import MainScreen from './screens/MainScreen';
-import UserProfile from './screens/UserProfile'
+import UserProfile from './screens/UserProfile';
 import SearchCompany from './screens/SearchCompany';
+import CompanyProfile from './screens/CompanyProfile';
 
 import styles from './Style';
 
@@ -58,23 +59,43 @@ function mainScreenScreen({Navigation}) {
 }
 
 function userProfileScreen({Navigation}) {
-  return(
+  return (
     <Stack.Navigator initialRouteName="UserProfile">
-    <Stack.Screen
-      name="UserProfile"
-      component={UserProfile}
-      options={{
-        title: 'ข้อมูลผู้ใช้',
-        headerStyle: {
-          backgroundColor: 'blue',
-        },
-        headerTintColor: 'white',
-        headerTitleStyle: {fontWeight: 'bold'},
-        headerTitleAlign: 'center',
-      }}
-    />
-  </Stack.Navigator>
-  )
+      <Stack.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={{
+          title: 'ข้อมูลผู้ใช้',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function companyProfileScreen({Navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="CompanyProfile">
+      <Stack.Screen
+        name="CompanyProfile"
+        component={CompanyProfile}
+        options={{
+          title: 'รายละเอียดบริษัท',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
 }
 
 function searchCompanyScreen({Navigation}) {
@@ -98,7 +119,7 @@ function searchCompanyScreen({Navigation}) {
 }
 
 function contactScreen({Navigation}) {
-  return(
+  return (
     <Stack.Navigator initialRouteName="Contact">
       <Stack.Screen
         name="Contact"
@@ -120,23 +141,14 @@ function contactScreen({Navigation}) {
 
 const contentStack = ({route}) => {
   return (
-    <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown: false}}>
-      <Stack.Screen
-        name="MainScreen"
-        component={mainScreenScreen}
-      />
-      <Stack.Screen
-        name="SearchCompany"
-        component={searchCompanyScreen}
-      />
-      <Stack.Screen
-        name="Contact"
-        component={contactScreen}
-      />
-      <Stack.Screen
-        name="UserProfile"
-        component={userProfileScreen}
-      />
+    <Stack.Navigator
+      initialRouteName="MainScreen"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MainScreen" component={mainScreenScreen} />
+      <Stack.Screen name="SearchCompany" component={searchCompanyScreen} />
+      <Stack.Screen name="Contact" component={contactScreen} />
+      <Stack.Screen name="UserProfile" component={userProfileScreen} />
+      <Stack.Screen name="CompanyProfile" component={companyProfileScreen} />
     </Stack.Navigator>
   );
 };
@@ -185,11 +197,14 @@ export default function App() {
           password: sha256(password),
         })
         .then(async (response) => {
-          alert(response.data.token);
+          // alert(response.data.token);
           userToken = response.data.token;
           try {
             await AsyncStorage.setItem('userToken', userToken);
-            await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+            await AsyncStorage.setItem(
+              'userData',
+              JSON.stringify(response.data),
+            );
           } catch (e) {
             console.log(e);
           }
@@ -225,7 +240,13 @@ export default function App() {
 
   if (loginState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderColor: "blue"}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: 'blue',
+        }}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -235,7 +256,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           {loginState.userToken !== null ? (
-            <Stack.Screen name="contentStack" component={contentStack}/>
+            <Stack.Screen name="contentStack" component={contentStack} />
           ) : (
             <Stack.Screen name="Login" component={Login} />
           )}

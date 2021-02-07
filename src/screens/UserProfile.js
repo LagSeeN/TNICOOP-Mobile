@@ -6,23 +6,24 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export default function UserProfile({navigation}){
     const [userProfile, setUserProfile] = React.useState({})
+    const [userData, setUserData] = React.useState({})
 
     React.useEffect(() => {
         AsyncStorage.getItem('userData').then((data) => {
             data = JSON.parse(data);
+            setUserData(data);
           const headers = {Authorization: `Bearer ${data.token}`};
           axios
             .get('/Users/' + data.userId, {headers})
             .then((response) => {
                 setUserProfile(response.data);
-                console.log(response.data);
             })
             .catch((error) => {
-              console.error(error);
+              console.error(error.response.status);
               alert(error);
             });
         });
-      }, []);
+      }, [userProfile]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -43,9 +44,18 @@ export default function UserProfile({navigation}){
             </Text>
             <Text style = {styles.textSpace}>
               <Text style = {styles.textStyle}>
+              อีเมล
+              </Text>
+              <Text style = {styles.textStyleInner}>    {userProfile.email}
+              </Text>
+            </Text>
+            {userProfile.userTypeName == "Student" ? (
+            <>
+            <Text style = {styles.textSpace}>
+              <Text style = {styles.textStyle}>
               รหัสนักศึกษา
               </Text>
-              <Text style = {styles.textStyleInner}>    60121062-8
+              <Text style = {styles.textStyleInner}>    {userProfile.userName}
               </Text>
             </Text>
             <Text style = {styles.textSpace}>
@@ -62,32 +72,31 @@ export default function UserProfile({navigation}){
               <Text style = {styles.textStyleInner}>    {userProfile.programName ? userProfile.programName : "(ไม่มีข้อมูล)"}
               </Text>
             </Text>
-            <Text style = {styles.textSpace}>
-              <Text style = {styles.textStyle}>
-              อีเมล
-              </Text>
-              <Text style = {styles.textStyleInner}>    {userProfile.email}
-              </Text>
-            </Text>
-            {userProfile.companyName ? (
-                <>
-                <Text style = {styles.textStyle}>
+            <Text style = {styles.textStyle}>
                 บริษัทที่สหกิจศึกษา
                 </Text>
                 <Text style = {styles.textStyleInner}>
-                {userProfile.companyName}
-                </Text> 
-                </>): null
-            }
-            { userProfile.adviserName ? (
-                <>
-                <Text style = {styles.textStyle}>
+                {userProfile.companyName ? userProfile.companyName : "(ไม่พบบริษัทที่สหกิจศึกษาในระบบ)"}
+                </Text>
+            <Text style = {styles.textStyle}>
                 อาจารย์ที่สหกิจศึกษา
                 </Text>
                 <Text style = {styles.textStyleInner}>
-                { userProfile.adviserName}
+                { userProfile.adviserName ? userProfile.adviserName : "(ไม่พบข้อมูลอาจารย์ที่ปรึกษาในระบบ)"}
                 </Text>
-                </>): null
+            </>
+            ):(
+              <>
+              <Text style = {styles.textStyle}>
+                สิทธิ์การใช้งาน
+                </Text>
+                <Text style = {styles.textStyleInner}>
+                {
+                  userProfile.userTypeName == "Teacher" ? "อาจารย์ที่ปรึกษา" : "เจ้าหน้าที่ศูนย์สหกิจศึกษา"
+                }
+                </Text>
+              </>
+              )
             }
           </View>
         </SafeAreaView>

@@ -46,7 +46,7 @@ const SearchCompany = ({navigation}) => {
     //           console.error(error);
     //           alert(error);
     //         });
-  }, []);
+  }, [masterDataSource]);
 
   const searchFilterFunction = (text) => {
     if (text) {
@@ -65,8 +65,13 @@ const SearchCompany = ({navigation}) => {
 
   const ItemView = ({item}) => {
     return (
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+      <Text style={styles.itemStyle} onPress={() => showCompanyDetail(item)}>
         {item.name.toUpperCase()}
+        {item.position ? (
+        <>
+          {"\n"}<Text>ตำแหน่งงาน: </Text> {item.position}
+        </>
+        ):(null)}
       </Text>
     );
   };
@@ -84,15 +89,16 @@ const SearchCompany = ({navigation}) => {
     );
   };
 
-  const getItem = (item) => {
-    alert(
-      'Id : ' +
-        item.id +
-        ' name : ' +
-        item.name +
-        ' description : ' +
-        item.description,
-    );
+  const showCompanyDetail = (item) => {
+    // alert(
+    //   'Id : ' +
+    //     item.id +
+    //     ' name : ' +
+    //     item.name +
+    //     ' description : ' +
+    //     item.description,
+    // );
+    navigation.navigate("CompanyProfile", {companyId: item.id})
   };
 
   return (
@@ -120,7 +126,9 @@ const SearchCompany = ({navigation}) => {
           </View>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {navigation.navigate("CompanyProfile")}}
+        >
           <Text style={styles.searchBtn}>ค้นหา</Text>
         </TouchableOpacity>
 
