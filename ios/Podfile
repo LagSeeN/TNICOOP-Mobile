@@ -8,6 +8,8 @@ target 'TNICOOP_Mobile' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'TNICOOP_MobileTests' do
     inherit! :complete
     # Pods for testing
