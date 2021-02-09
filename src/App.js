@@ -78,12 +78,18 @@ function userProfileScreen({Navigation}) {
   );
 }
 
-function companyProfileScreen({Navigation}) {
+function companyProfileScreen({Navigation, route}) {
   return (
     <Stack.Navigator initialRouteName="CompanyProfile">
       <Stack.Screen
         name="CompanyProfile"
         component={CompanyProfile}
+        // สร้างแล้วยัดตัวแปรให้ด้วยนะครับ 😅
+        initialParams={{
+          id: route.params.id,
+          name: route.params.name,
+          description: route.params.description,
+        }}
         options={{
           title: 'รายละเอียดบริษัท',
           headerStyle: {

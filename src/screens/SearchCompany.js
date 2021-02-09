@@ -68,10 +68,11 @@ const SearchCompany = ({navigation}) => {
       <Text style={styles.itemStyle} onPress={() => showCompanyDetail(item)}>
         {item.name.toUpperCase()}
         {item.position ? (
-        <>
-          {"\n"}<Text>ตำแหน่งงาน: </Text> {item.position}
-        </>
-        ):(null)}
+          <>
+            {'\n'}
+            <Text>ตำแหน่งงาน: </Text> {item.position}
+          </>
+        ) : null}
       </Text>
     );
   };
@@ -89,6 +90,7 @@ const SearchCompany = ({navigation}) => {
     );
   };
 
+  /// ทำตรงนี้
   const showCompanyDetail = (item) => {
     // alert(
     //   'Id : ' +
@@ -98,7 +100,11 @@ const SearchCompany = ({navigation}) => {
     //     ' description : ' +
     //     item.description,
     // );
-    navigation.navigate("CompanyProfile", {companyId: item.id})
+    navigation.navigate('CompanyProfile', {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+    });
   };
 
   return (
@@ -127,8 +133,9 @@ const SearchCompany = ({navigation}) => {
         </View>
 
         <TouchableOpacity
-        onPress={() => {navigation.navigate("CompanyProfile")}}
-        >
+          onPress={() => {
+            navigation.navigate('CompanyProfile');
+          }}>
           <Text style={styles.searchBtn}>ค้นหา</Text>
         </TouchableOpacity>
 
