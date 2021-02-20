@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useReducer} from 'react';
-import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, TouchableOpacity, ActivityIndicator, Text} from 'react-native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -19,6 +19,7 @@ import MainScreen from './screens/MainScreen';
 import UserProfile from './screens/UserProfile';
 import SearchCompany from './screens/SearchCompany';
 import CompanyProfile from './screens/CompanyProfile';
+import AddEditCompany from './screens/AddEditCompany';
 
 import styles from './Style';
 
@@ -118,6 +119,17 @@ function searchCompanyScreen({Navigation}) {
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
           headerTitleAlign: 'center',
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                Navigation.navigate('Contact');
+              }}>
+              <Text
+                style={{fontSize: 34, marginRight: 15, backgroundColor: 'red'}}>
+                +
+              </Text>
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack.Navigator>
@@ -143,6 +155,29 @@ function contactScreen({Navigation}) {
     </Stack.Navigator>
   );
 }
+
+function addeditCompanyScreen({Navigation, route}) {
+  return (
+    <Stack.Navigator initialRouteName="AddEditCompany">
+      <Stack.Screen
+        name="AddEditCompany"
+        component={AddEditCompany}
+        initialParams={{
+          id: 'OK 200',
+        }}
+        options={{
+          title: 'เพิ่ม/แก้ไขบริษัท',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 //#endregion
 
 const contentStack = ({route}) => {
@@ -155,6 +190,7 @@ const contentStack = ({route}) => {
       <Stack.Screen name="Contact" component={contactScreen} />
       <Stack.Screen name="UserProfile" component={userProfileScreen} />
       <Stack.Screen name="CompanyProfile" component={companyProfileScreen} />
+      <Stack.Screen name="AddEditCompany" component={addeditCompanyScreen} />
     </Stack.Navigator>
   );
 };

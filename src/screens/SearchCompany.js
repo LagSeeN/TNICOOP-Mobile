@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
-  SectionList,
   FlatList,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -26,7 +25,7 @@ const SearchCompany = ({navigation}) => {
     AsyncStorage.getItem('userToken').then((token) => {
       const headers = {Authorization: `Bearer ${token}`};
       axios
-        .get('/Companies', {headers})
+        .get('/Companies/', {headers})
         .then((response) => {
           setFilteredDataSource(response.data);
           setMasterDataSource(response.data);
@@ -90,20 +89,9 @@ const SearchCompany = ({navigation}) => {
     );
   };
 
-  /// ทำตรงนี้
   const showCompanyDetail = (item) => {
-    // alert(
-    //   'Id : ' +
-    //     item.id +
-    //     ' name : ' +
-    //     item.name +
-    //     ' description : ' +
-    //     item.description,
-    // );
     navigation.navigate('CompanyProfile', {
       id: item.id,
-      name: item.name,
-      description: item.description,
     });
   };
 
@@ -131,13 +119,21 @@ const SearchCompany = ({navigation}) => {
             />
           </View>
         </View>
+        <View style={styles.searchBtnLeftandRight}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('AddEditCompany');
+            }}>
+            <Text style={styles.searchBtn}>เพิ่ม</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('CompanyProfile');
-          }}>
-          <Text style={styles.searchBtn}>ค้นหา</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('CompanyProfile');
+            }}>
+            <Text style={styles.searchBtnLeft}>ค้นหา</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* <SectionList
           sections={DATA}
