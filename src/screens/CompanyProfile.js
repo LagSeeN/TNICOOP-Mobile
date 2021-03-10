@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, SafeAreaView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
 // import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
@@ -8,9 +16,12 @@ export default function CompanyProfile({navigation, route}) {
   // console.warn(navigation);
   // const [companyId, setCompanyId] = useState(props.params.companyId);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [permission, setpermission] = useState('');
   useEffect(() => {
-    AsyncStorage.getItem('userToken').then((token) => {
-      const headers = {Authorization: `Bearer ${token}`};
+    AsyncStorage.getItem('userData').then((data) => {
+      data = JSON.parse(data);
+      setpermission(data.permission);
+      const headers = {Authorization: `Bearer ${data.token}`};
       axios
         .get('/Companies/' + route.params.id, {headers})
         .then((response) => {
@@ -24,27 +35,88 @@ export default function CompanyProfile({navigation, route}) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.heading}>
-        <Text style={styles.headingText}>{masterDataSource.name}</Text>
-      </View>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.heading}>
+          <Text style={styles.headingText}>{masterDataSource.name}</Text>
+        </View>
 
-      <View style={styles.textView}>
-        <Text style={styles.textStyle}>รายละเอียดบริษัท</Text>
-        <Text style={styles.textStyleInner}>
-          {masterDataSource.description}
-        </Text>
-        <View style={styles.lineStyle}></View>
-        <Text style={styles.textStyle}>ตำแหน่งงาน</Text>
-        <Text style={styles.textStyleInner}>{masterDataSource.position}</Text>
-        <View style={styles.lineStyle}></View>
-        <Text style={styles.textStyle}>ที่อยู่</Text>
-        <Text style={styles.textStyleInner}>{masterDataSource.address}</Text>
-        <View style={styles.lineStyle}></View>
-        <Text style={styles.textStyle}>สวัสดิการ</Text>
-        <Text style={styles.textStyleInner}>{masterDataSource.welfare}</Text>
-      </View>
-    </SafeAreaView>
+        <View style={styles.textView}>
+          <Text style={styles.textStyle}>รายละเอียดบริษัท</Text>
+          <Text style={styles.textStyleInner}>
+            {masterDataSource.description}
+          </Text>
+          <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>ตำแหน่งงาน</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.position}</Text>
+          <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>ที่อยู่</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.address}</Text>
+          <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>สวัสดิการ</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.welfare}</Text>
+        </View>
+        {permission == 3 || permission == 4 ? (
+          <>
+            <View style={styles.textView}>
+              <View style={styles.fixToText}>
+                <TouchableOpacity
+                  style={[styles.buttonStyle, {backgroundColor: 'yellow'}]}
+                  onPress={() => {
+                    navigation.navigate('AddEditCompany', {
+                      id: masterDataSource.id,
+                      mode: 'Edit',
+                    });
+                  }}>
+                  <Text style={styles.buttonText}>แก้ไข</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.buttonStyle, {backgroundColor: 'red'}]}
+                  onPress={() => {
+                    Alert.alert(
+                      'ลบ',
+                      'คุณต้องการลบ ' + masterDataSource.name + ' หรือไม่',
+                      [
+                        {
+                          text: 'ยกเลิก',
+                          style: 'cancel',
+                        },
+                        {
+                          text: 'ตกลง',
+                          onPress: () => {
+                            AsyncStorage.getItem('userData').then((data) => {
+                              data = JSON.parse(data);
+                              const headers = {
+                                Authorization: `Bearer ${data.token}`,
+                              };
+                              axios
+                                .delete('/Companies/' + masterDataSource.id, {
+                                  headers,
+                                })
+                                .then((response) => {
+                                  //alert(response.data);
+                                  alert('ลบข้อมูลสำเร็จ');
+                                  navigation.goBack();
+                                })
+                                .catch((error) => {
+                                  console.error(error);
+                                  alert(error);
+                                });
+                            });
+                          },
+                        },
+                      ],
+                      {cancelable: false},
+                    );
+                  }}>
+                  <Text style={styles.buttonText}>ลบ</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : null}
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -83,5 +155,25 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     marginRight: 50,
     marginBottom: 15,
+  },
+  textView: {
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  buttonStyle: {
+    height: 40,
+    width: 90,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 40,
   },
 });
