@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+
+import {AuthContext} from '../components/Context';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-ionicons';
@@ -17,7 +20,8 @@ import axios from 'axios';
 // import {httpClient} from '../components/HttpClient';
 
 const SearchCompany = ({navigation}) => {
-  const [search, setSearch] = useState('');
+  const [searchName, setSearchName] = useState('');
+  const [searchPos, setSearchPos] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [permission, setpermission] = useState('');
@@ -35,8 +39,13 @@ const SearchCompany = ({navigation}) => {
             setMasterDataSource(response.data);
           })
           .catch((error) => {
-            console.error(error);
-            alert(error);
+            if (error.response.status == '401') {
+              alert('Session หมดอายุ');
+              //signOut();
+            } else {
+              console.error(error);
+              alert(error);
+            }
           });
       });
       //console.log('useEffect Re-run');
@@ -55,7 +64,9 @@ const SearchCompany = ({navigation}) => {
     //         });
   }, [navigation]);
 
-  const searchFilterFunction = (text) => {
+  const {signOut} = useContext(AuthContext);
+
+  const searchNameFilterFunction = (text) => {
     if (text) {
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
@@ -63,10 +74,27 @@ const SearchCompany = ({navigation}) => {
         return itemData.indexOf(textData) > -1;
       });
       setFilteredDataSource(newData);
-      setSearch(text);
+      setSearchName(text);
     } else {
       setFilteredDataSource(masterDataSource);
-      setSearch(text);
+      setSearchName(text);
+    }
+  };
+
+  const searchPosFilterFunction = (text) => {
+    if (text) {
+      const newData = masterDataSource.filter(function (item) {
+        const itemData = item.position
+          ? item.position.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearchPos(text);
+    } else {
+      setFilteredDataSource(masterDataSource);
+      setSearchPos(text);
     }
   };
 
@@ -92,7 +120,7 @@ const SearchCompany = ({navigation}) => {
           height: 0.5,
           width: '100%',
           backgroundColor: '#C8C8C8',
-          marginVertical:10
+          marginVertical: 10,
         }}
       />
     );
@@ -113,8 +141,8 @@ const SearchCompany = ({navigation}) => {
             <TextInput
               style={styles.textInput}
               placeholder="ค้นหาบริษัท"
-              onChangeText={(text) => searchFilterFunction(text)}
-              value={search}
+              onChangeText={(text) => searchNameFilterFunction(text)}
+              value={searchName}
               underlineColorAndroid="transparent"
             />
           </View>
@@ -124,6 +152,8 @@ const SearchCompany = ({navigation}) => {
             <TextInput
               style={styles.textInput}
               placeholder="ตำแหน่งงาน"
+              onChangeText={(text) => searchPosFilterFunction(text)}
+              value={searchPos}
               underlineColorAndroid="transparent"
             />
           </View>
@@ -143,7 +173,27 @@ const SearchCompany = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('CompanyProfile');
+              AsyncStorage.getItem('userData').then((data) => {
+                data = JSON.parse(data);
+                const headers = {Authorization: `Bearer ${data.token}`};
+                axios
+                  .post(
+                    '/Companies/search',
+                    {name: searchName, position: searchPos},
+                    {headers},
+                  )
+                  .then((response) => {
+                    //setMasterDataSource(response.data);
+                    navigation.navigate('CompanyProfile', {
+                      id: response.data[0].id,
+                    });
+                    //console.log(response.data[0].id);
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                    alert(error);
+                  });
+              });
             }}>
             <Text style={styles.searchBtnLeft}>ค้นหา</Text>
           </TouchableOpacity>
@@ -171,7 +221,7 @@ const SearchCompany = ({navigation}) => {
           keyExtractor={(index, item) => index.toString() + item}
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
-          style={{padding:20}}
+          style={{padding: 20}}
         />
       </View>
     </SafeAreaView>
