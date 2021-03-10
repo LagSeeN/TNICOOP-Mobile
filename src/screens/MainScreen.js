@@ -20,22 +20,23 @@ export default function MainScreen({navigation}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    AsyncStorage.getItem('userData').then((data) => {
+      //setLoading(false);
+      setUserData(JSON.parse(data));
+    });
     axios.interceptors.response.use(
       (response) => {
         return response;
       },
       (error) => {
         alert('Session หมดอายุ');
+        console.log(error);
         signOut();
         return error;
       },
     );
-    AsyncStorage.getItem('userData').then((data) => {
-      setLoading(false);
-      setUserData(JSON.parse(data));
-    });
 
-    return;
+    //return;
   }, []);
 
   const DeviceWidth = Dimensions.get('window').width;
