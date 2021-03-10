@@ -119,17 +119,17 @@ function searchCompanyScreen({Navigation}) {
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
           headerTitleAlign: 'center',
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                Navigation.navigate('Contact');
-              }}>
-              <Text
-                style={{fontSize: 34, marginRight: 15, backgroundColor: 'red'}}>
-                +
-              </Text>
-            </TouchableOpacity>
-          ),
+          // headerRight: () => (
+          //   <TouchableOpacity
+          //     onPress={() => {
+          //       Navigation.navigate('Contact');
+          //     }}>
+          //     <Text
+          //       style={{fontSize: 34, marginRight: 15, backgroundColor: 'red'}}>
+          //       +
+          //     </Text>
+          //   </TouchableOpacity>
+          // ),
         }}
       />
     </Stack.Navigator>
