@@ -13,11 +13,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {AuthContext} from '../components/Context';
 
+import axios from 'axios';
+
 export default function MainScreen({navigation}) {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        alert('Session หมดอายุ');
+        signOut();
+        return error;
+      },
+    );
     AsyncStorage.getItem('userData').then((data) => {
       setLoading(false);
       setUserData(JSON.parse(data));
