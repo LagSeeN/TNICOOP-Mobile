@@ -20,21 +20,29 @@ const SearchCompany = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [permission, setpermission] = useState('');
 
   useEffect(() => {
-    AsyncStorage.getItem('userToken').then((token) => {
-      const headers = {Authorization: `Bearer ${token}`};
-      axios
-        .get('/Companies/', {headers})
-        .then((response) => {
-          setFilteredDataSource(response.data);
-          setMasterDataSource(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-          alert(error);
-        });
+    const unsubscribe = navigation.addListener('focus', () => {
+      AsyncStorage.getItem('userData').then((data) => {
+        data = JSON.parse(data);
+        setpermission(data.permission);
+        const headers = {Authorization: `Bearer ${data.token}`};
+        axios
+          .get('/Companies/', {headers})
+          .then((response) => {
+            setFilteredDataSource(response.data);
+            setMasterDataSource(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error);
+          });
+      });
+      //console.log('useEffect Re-run');
     });
+    return unsubscribe;
+    // console.log(masterDataSource);
     // httpClient
     //   .get("Companies")
     //   .then((response) => {
@@ -45,7 +53,7 @@ const SearchCompany = ({navigation}) => {
     //           console.error(error);
     //           alert(error);
     //         });
-  }, [masterDataSource]);
+  }, [navigation]);
 
   const searchFilterFunction = (text) => {
     if (text) {
@@ -120,12 +128,17 @@ const SearchCompany = ({navigation}) => {
           </View>
         </View>
         <View style={styles.searchBtnLeftandRight}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('AddEditCompany');
-            }}>
-            <Text style={styles.searchBtn}>เพิ่ม</Text>
-          </TouchableOpacity>
+          {permission == 3 || permission == 4 ? (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('AddEditCompany', {
+                  id: null,
+                  mode: 'Add',
+                });
+              }}>
+              <Text style={styles.searchBtn}>เพิ่ม</Text>
+            </TouchableOpacity>
+          ) : null}
 
           <TouchableOpacity
             onPress={() => {
