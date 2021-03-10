@@ -62,14 +62,20 @@ export default function MainScreen({navigation}) {
             </TouchableOpacity>
 
             {userData.permission === 1 ? (
-              <TouchableOpacity style={styles.item}>
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() => navigation.navigate('StudentProfile')}>
                 <Icon name="users" size={60} color="blue" />
                 <Text style={styles.itemTitle}>ข้อมูลนักศึกษา</Text>
               </TouchableOpacity>
             ) : null}
 
             {userData.permission === 2 ? (
-              <TouchableOpacity style={styles.item}>
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() => {
+                  navigation.navigate('SubmitDocument');
+                }}>
                 <Icon name="copy" size={60} color="blue" />
                 <Text style={styles.itemTitle}>ส่งเอกสาร</Text>
               </TouchableOpacity>

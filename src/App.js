@@ -20,6 +20,8 @@ import UserProfile from './screens/UserProfile';
 import SearchCompany from './screens/SearchCompany';
 import CompanyProfile from './screens/CompanyProfile';
 import AddEditCompany from './screens/AddEditCompany';
+import SubmitDocument from './screens/SubmitDocument';
+import StudentProfile from './screens/StudentProfile';
 
 import styles from './Style';
 
@@ -179,6 +181,45 @@ function addEditCompanyScreen({Navigation, route}) {
     </Stack.Navigator>
   );
 }
+
+function submitDocument({Navigation, route}) {
+  return (
+    <Stack.Navigator initialRouteName="SubmitDocument">
+      <Stack.Screen
+        name="SubmitDocument"
+        component={SubmitDocument}
+        options={{
+          title: 'เอกสาร',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function studentProfileScreen({Navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="StudentProfile">
+      <Stack.Screen
+        name="StudentProfile"
+        component={StudentProfile}
+        options={{
+          title: 'ข้อมูลนักศึกษา',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 //#endregion
 
 const contentStack = ({route}) => {
@@ -192,6 +233,8 @@ const contentStack = ({route}) => {
       <Stack.Screen name="UserProfile" component={userProfileScreen} />
       <Stack.Screen name="CompanyProfile" component={companyProfileScreen} />
       <Stack.Screen name="AddEditCompany" component={addEditCompanyScreen} />
+      <Stack.Screen name="SubmitDocument" component={submitDocument} />
+      <Stack.Screen name="StudentProfile" component={studentProfileScreen} />
     </Stack.Navigator>
   );
 };

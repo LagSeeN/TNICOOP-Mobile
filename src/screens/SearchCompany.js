@@ -92,6 +92,7 @@ const SearchCompany = ({navigation}) => {
           height: 0.5,
           width: '100%',
           backgroundColor: '#C8C8C8',
+          marginVertical:10
         }}
       />
     );
@@ -170,6 +171,7 @@ const SearchCompany = ({navigation}) => {
           keyExtractor={(index, item) => index.toString() + item}
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
+          style={{padding:20}}
         />
       </View>
     </SafeAreaView>

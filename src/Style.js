@@ -91,4 +91,62 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
   //#endregion
+
+   //#region pages/StudentProfile.js
+   centeredView: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+    width:0,
+    height:2,
+  },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation:5
+  },
+  dateStyle: {
+    color: 'blue',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderColor: 'blue',
+    borderWidth: 1,
+    borderRadius:5,
+    width:150,
+    height:50,
+    textAlignVertical:'center'
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  titleText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'blue',
+    marginBottom:5,
+    textAlign: 'left',
+    marginLeft:30,
+    flex: 1
+  },
+  modalButton:{
+    color:'blue',
+    textAlign:'center',
+    marginTop:20,
+    borderColor:'blue',
+    borderWidth: 1,
+    borderRadius:5,
+    width:100,
+    padding:10
+  }
+  //#endregion
 });
