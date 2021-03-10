@@ -29,9 +29,12 @@ export default function MainScreen({navigation}) {
         return response;
       },
       (error) => {
-        alert('Session หมดอายุ');
-        console.log(error);
-        signOut();
+        if (error.request.status === 401) {
+          alert('Session หมดอายุ');
+          signOut();
+        } else {
+          console.log(error);
+        }
         return error;
       },
     );
