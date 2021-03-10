@@ -9,12 +9,44 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function AddEditCompany() {
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+
+export default function AddEditCompany({navigation, route}) {
   let [comName, setComName] = React.useState('');
   let [comDesc, setComDesc] = React.useState('');
   let [comPosition, setComPosition] = React.useState('');
   let [comAddress, setComAddress] = React.useState('');
+  let [comWebsite, setComWebSite] = React.useState('');
+  let [comPhone, setComPhone] = React.useState('');
+  let [comEmail, setComEmail] = React.useState('');
   let [comWelfare, setComWelfare] = React.useState('');
+
+  React.useEffect(() => {
+    if (route.params.mode == 'Edit') {
+      AsyncStorage.getItem('userData').then((data) => {
+        data = JSON.parse(data);
+        const headers = {Authorization: `Bearer ${data.token}`};
+        axios
+          .get('/Companies/' + route.params.id, {headers})
+          .then((response) => {
+            //setMasterDataSource(response.data);
+            setComName(response.data.name);
+            setComDesc(response.data.description);
+            setComPosition(response.data.position);
+            setComAddress(response.data.address);
+            setComWebSite(response.data.website);
+            setComPhone(response.data.phone);
+            setComEmail(response.data.email);
+            setComWelfare(response.data.welfare);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error);
+          });
+      });
+    }
+  }, []);
 
   let submit = () => {
     if (!comName) {
@@ -22,20 +54,92 @@ export default function AddEditCompany() {
       return;
     }
     if (!comDesc) {
-      alert('Please fill name');
+      alert('Please fill Desc');
       return;
     }
     if (!comPosition) {
-      alert('Please fill name');
+      alert('Please fill Position');
       return;
     }
     if (!comAddress) {
-      alert('Please fill name');
+      alert('Please fill Address');
+      return;
+    }
+    if (!comWebsite) {
+      alert('Please fill Website');
+      return;
+    }
+    if (!comPhone) {
+      alert('Please fill Phone');
+      return;
+    }
+    if (!comEmail) {
+      alert('Please fill Email');
       return;
     }
     if (!comWelfare) {
-      alert('Please fill name');
+      alert('Please fill Welfare');
       return;
+    }
+    if (route.params.mode == 'Edit') {
+      AsyncStorage.getItem('userData').then((data) => {
+        data = JSON.parse(data);
+        const headers = {Authorization: `Bearer ${data.token}`};
+        axios
+          .put(
+            '/Companies/' + route.params.id,
+            {
+              id: route.params.id,
+              name: comName,
+              description: comDesc,
+              position: comPosition,
+              welfare: comWelfare,
+              website: comWebsite,
+              phone: comPhone,
+              email: comEmail,
+              address: comAddress,
+            },
+            {headers},
+          )
+          .then((response) => {
+            //alert(response.data);
+            alert('แก้ไขข้อมูลสำเร็จ');
+            navigation.navigate('SearchCompany');
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error);
+          });
+      });
+    } else {
+      AsyncStorage.getItem('userData').then((data) => {
+        data = JSON.parse(data);
+        const headers = {Authorization: `Bearer ${data.token}`};
+        axios
+          .post(
+            '/Companies/',
+            {
+              name: comName,
+              description: comDesc,
+              position: comPosition,
+              welfare: comWelfare,
+              website: comWebsite,
+              phone: comPhone,
+              email: comEmail,
+              address: comAddress,
+            },
+            {headers},
+          )
+          .then((response) => {
+            //alert(response.data);
+            alert('เพิ่มข้อมูลสำเร็จ');
+            navigation.navigate('SearchCompany', {loading: true});
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error);
+          });
+      });
     }
   };
 
@@ -52,6 +156,7 @@ export default function AddEditCompany() {
             style={styles.textInputStyle}
             placeholder="ชื่อบริษัท"
             onChangeText={(comName) => setComName(comName)}
+            defaultValue={comName}
           />
         </View>
         <View style={styles.textView}>
@@ -63,6 +168,7 @@ export default function AddEditCompany() {
             multiline={true}
             numberOfLines={5}
             onChangeText={(comDesc) => setComDesc(comDesc)}
+            defaultValue={comDesc}
           />
         </View>
 
@@ -72,6 +178,7 @@ export default function AddEditCompany() {
             style={styles.textInputStyle}
             placeholder="ตำแหน่งงาน"
             onChangeText={(comPosition) => setComPosition(comPosition)}
+            defaultValue={comPosition}
           />
         </View>
 
@@ -84,6 +191,37 @@ export default function AddEditCompany() {
             multiline={true}
             numberOfLines={5}
             onChangeText={(comAddress) => setComAddress(comAddress)}
+            defaultValue={comAddress}
+          />
+        </View>
+
+        <View style={styles.textView}>
+          <Text style={styles.textStyle}>เบอร์โทร</Text>
+          <TextInput
+            style={styles.textInputStyle}
+            placeholder="เบอร์โทร"
+            onChangeText={(comPhone) => setComPhone(comPhone)}
+            defaultValue={comPhone}
+          />
+        </View>
+
+        <View style={styles.textView}>
+          <Text style={styles.textStyle}>อีเมล</Text>
+          <TextInput
+            style={styles.textInputStyle}
+            placeholder="อีเมล"
+            onChangeText={(comEmail) => setComEmail(comEmail)}
+            defaultValue={comEmail}
+          />
+        </View>
+
+        <View style={styles.textView}>
+          <Text style={styles.textStyle}>เว็บไซด์</Text>
+          <TextInput
+            style={styles.textInputStyle}
+            placeholder="เว็บไซต์"
+            onChangeText={(comWebsite) => setComWebSite(comWebsite)}
+            defaultValue={comWebsite}
           />
         </View>
 
@@ -93,6 +231,7 @@ export default function AddEditCompany() {
             style={styles.textInputStyle}
             placeholder="สวัสดิการ"
             onChangeText={(comWelfare) => setComWelfare(comWelfare)}
+            defaultValue={comWelfare}
           />
         </View>
 
@@ -105,7 +244,7 @@ export default function AddEditCompany() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonStyle, {backgroundColor: 'orange'}]}
-              onPress={submit}>
+              onPress={() => navigation.goBack()}>
               <Text style={styles.buttonText}>ยกเลิก</Text>
             </TouchableOpacity>
           </View>
