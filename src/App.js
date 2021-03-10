@@ -105,7 +105,7 @@ function companyProfileScreen({Navigation, route}) {
   );
 }
 
-function searchCompanyScreen({Navigation}) {
+function searchCompanyScreen({Navigation, route}) {
   return (
     <Stack.Navigator initialRouteName="SearchCompany">
       <Stack.Screen
@@ -156,14 +156,15 @@ function contactScreen({Navigation}) {
   );
 }
 
-function addeditCompanyScreen({Navigation, route}) {
+function addEditCompanyScreen({Navigation, route}) {
   return (
     <Stack.Navigator initialRouteName="AddEditCompany">
       <Stack.Screen
         name="AddEditCompany"
         component={AddEditCompany}
         initialParams={{
-          id: 'OK 200',
+          id: route.params.id,
+          mode: route.params.mode,
         }}
         options={{
           title: 'เพิ่ม/แก้ไขบริษัท',
@@ -190,7 +191,7 @@ const contentStack = ({route}) => {
       <Stack.Screen name="Contact" component={contactScreen} />
       <Stack.Screen name="UserProfile" component={userProfileScreen} />
       <Stack.Screen name="CompanyProfile" component={companyProfileScreen} />
-      <Stack.Screen name="AddEditCompany" component={addeditCompanyScreen} />
+      <Stack.Screen name="AddEditCompany" component={addEditCompanyScreen} />
     </Stack.Navigator>
   );
 };
@@ -242,7 +243,7 @@ export default function App() {
           // alert(response.data.token);
           userToken = response.data.token;
           try {
-            await AsyncStorage.setItem('userToken', userToken);
+            // await AsyncStorage.setItem('userToken', userToken);
             await AsyncStorage.setItem(
               'userData',
               JSON.stringify(response.data),
@@ -259,7 +260,7 @@ export default function App() {
     },
     signOut: async () => {
       try {
-        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem('userData');
       } catch (e) {
         console.log(e);
       }
@@ -272,7 +273,7 @@ export default function App() {
       let userToken;
       userToken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken');
+        userToken = await AsyncStorage.getItem('userData');
       } catch (e) {
         console.log(e);
       }
