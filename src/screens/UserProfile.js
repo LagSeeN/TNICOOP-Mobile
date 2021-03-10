@@ -23,7 +23,7 @@ export default function UserProfile({navigation}){
               alert(error);
             });
         });
-      }, [userProfile]);
+      }, []);
 
     return (
         <SafeAreaView style={styles.container}>
