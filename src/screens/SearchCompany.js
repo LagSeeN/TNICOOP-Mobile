@@ -39,13 +39,13 @@ const SearchCompany = ({navigation}) => {
             setMasterDataSource(response.data);
           })
           .catch((error) => {
-            // if (error.response.status == '401') {
-            //   alert('Session หมดอายุ');
-            //   //signOut();
-            // } else {
-            console.error(error);
-            alert(error);
-            // }
+            if (error.response.status == '401') {
+              alert('Session หมดอายุ');
+              signOut();
+            } else {
+              console.error(error);
+              alert(error);
+            }
           });
       });
       //console.log('useEffect Re-run');

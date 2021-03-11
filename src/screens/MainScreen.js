@@ -24,20 +24,6 @@ export default function MainScreen({navigation}) {
       //setLoading(false);
       setUserData(JSON.parse(data));
     });
-    axios.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        if (error.request.status === 401) {
-          alert('Session หมดอายุ');
-          signOut();
-        } else {
-          console.log(error);
-        }
-        return error;
-      },
-    );
 
     //return;
   }, []);

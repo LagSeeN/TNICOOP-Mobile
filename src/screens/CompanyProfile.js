@@ -11,12 +11,16 @@ import {
 // import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import {AuthContext} from '../components/Context';
 
 export default function CompanyProfile({navigation, route}) {
   // console.warn(navigation);
   // const [companyId, setCompanyId] = useState(props.params.companyId);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [permission, setpermission] = useState('');
+
+  const {signOut} = useContext(AuthContext);
+
   useEffect(() => {
     AsyncStorage.getItem('userData').then((data) => {
       data = JSON.parse(data);
@@ -28,8 +32,13 @@ export default function CompanyProfile({navigation, route}) {
           setMasterDataSource(response.data);
         })
         .catch((error) => {
-          console.error(error);
-          alert(error);
+          if (error.response.status == '401') {
+            alert('Session หมดอายุ');
+            signOut();
+          } else {
+            console.error(error);
+            alert(error);
+          }
         });
     });
   }, []);

@@ -11,6 +11,7 @@ import {
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import {AuthContext} from '../components/Context';
 
 export default function AddEditCompany({navigation, route}) {
   let [comName, setComName] = React.useState('');
@@ -21,6 +22,8 @@ export default function AddEditCompany({navigation, route}) {
   let [comPhone, setComPhone] = React.useState('');
   let [comEmail, setComEmail] = React.useState('');
   let [comWelfare, setComWelfare] = React.useState('');
+
+  const {signOut} = useContext(AuthContext);
 
   React.useEffect(() => {
     if (route.params.mode == 'Edit') {
@@ -41,8 +44,13 @@ export default function AddEditCompany({navigation, route}) {
             setComWelfare(response.data.welfare);
           })
           .catch((error) => {
-            console.error(error);
-            alert(error);
+            if (error.response.status == '401') {
+              alert('Session หมดอายุ');
+              signOut();
+            } else {
+              console.error(error);
+              alert(error);
+            }
           });
       });
     }
@@ -107,8 +115,13 @@ export default function AddEditCompany({navigation, route}) {
             navigation.navigate('SearchCompany');
           })
           .catch((error) => {
-            console.error(error);
-            alert(error);
+            if (error.response.status == '401') {
+              alert('Session หมดอายุ');
+              signOut();
+            } else {
+              console.error(error);
+              alert(error);
+            }
           });
       });
     } else {
@@ -136,8 +149,13 @@ export default function AddEditCompany({navigation, route}) {
             navigation.navigate('SearchCompany', {loading: true});
           })
           .catch((error) => {
-            console.error(error);
-            alert(error);
+            if (error.response.status == '401') {
+              alert('Session หมดอายุ');
+              signOut();
+            } else {
+              console.error(error);
+              alert(error);
+            }
           });
       });
     }
