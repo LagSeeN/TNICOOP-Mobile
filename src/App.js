@@ -22,6 +22,7 @@ import CompanyProfile from './screens/CompanyProfile';
 import AddEditCompany from './screens/AddEditCompany';
 import SubmitDocument from './screens/SubmitDocument';
 import StudentProfile from './screens/StudentProfile';
+import showPdf from './screens/Pdf';
 
 import styles from './Style';
 
@@ -220,6 +221,28 @@ function studentProfileScreen({Navigation}) {
     </Stack.Navigator>
   );
 }
+function showPdfScreen({Navigation, route}) {
+  return (
+    <Stack.Navigator initialRouteName="StudentProfile">
+      <Stack.Screen
+        name="ShowPdf"
+        component={showPdf}
+        initialParams={{
+          source: route.params.source,
+        }}
+        options={{
+          title: 'PDF',
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 //#endregion
 
 const contentStack = ({route}) => {
@@ -235,6 +258,7 @@ const contentStack = ({route}) => {
       <Stack.Screen name="AddEditCompany" component={addEditCompanyScreen} />
       <Stack.Screen name="SubmitDocument" component={submitDocument} />
       <Stack.Screen name="StudentProfile" component={studentProfileScreen} />
+      <Stack.Screen name="ShowPdf" component={showPdfScreen} />
     </Stack.Navigator>
   );
 };
