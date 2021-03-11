@@ -23,7 +23,7 @@ export default function AddEditCompany({navigation, route}) {
   let [comEmail, setComEmail] = React.useState('');
   let [comWelfare, setComWelfare] = React.useState('');
 
-  const {signOut} = useContext(AuthContext);
+  const {signOut} = React.useContext(AuthContext);
 
   React.useEffect(() => {
     if (route.params.mode == 'Edit') {
