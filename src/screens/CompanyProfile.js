@@ -19,7 +19,7 @@ export default function CompanyProfile({navigation, route}) {
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [permission, setpermission] = useState('');
 
-  const {signOut} = useContext(AuthContext);
+  const {signOut} = React.useContext(AuthContext);
 
   useEffect(() => {
     AsyncStorage.getItem('userData').then((data) => {
