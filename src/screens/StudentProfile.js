@@ -377,29 +377,8 @@ const StudentProfile = ({navigation}) => {
                         <TouchableOpacity
                           style={{marginLeft: 10}}
                           onPress={() => {
-                            AsyncStorage.getItem('userData').then((data) => {
-                              data = JSON.parse(data);
-                              const headers = {
-                                Authorization: `Bearer ${data.token}`,
-                              };
-                              axios
-                                .get('/InternshipFiles/' + item.id, {
-                                  headers,
-                                })
-                                .then((response) => {
-                                  navigation.navigate('ShowPdf', {
-                                    source: response.data,
-                                  });
-                                })
-                                .catch((error) => {
-                                  if (error.response.status == '401') {
-                                    alert('Session หมดอายุ');
-                                    signOut();
-                                  } else {
-                                    console.error(error);
-                                    alert(error);
-                                  }
-                                });
+                            navigation.navigate('ShowPdf', {
+                              id: item.id,
                             });
                           }}>
                           <Text>

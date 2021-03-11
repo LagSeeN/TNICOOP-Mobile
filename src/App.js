@@ -228,7 +228,7 @@ function showPdfScreen({Navigation, route}) {
         name="ShowPdf"
         component={showPdf}
         initialParams={{
-          source: route.params.source,
+          id: route.params.id,
         }}
         options={{
           title: 'PDF',
