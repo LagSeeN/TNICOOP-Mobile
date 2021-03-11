@@ -17,16 +17,51 @@ import axios from 'axios';
 
 export default function MainScreen({navigation}) {
   const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [examineDate, setExamineDate] = useState('');
 
   useEffect(() => {
-    AsyncStorage.getItem('userData').then((data) => {
-      //setLoading(false);
-      setUserData(JSON.parse(data));
+    const unsubscribe = navigation.addListener('focus', () => {
+      AsyncStorage.getItem('userData').then((data) => {
+        data = JSON.parse(data);
+        setUserData(data);
+        if (data.permission == 2) {
+          const headers = {Authorization: `Bearer ${data.token}`};
+          axios
+            .post(
+              'InternshipDetails/ExamineDate?id=' + data.userId,
+              {},
+              {headers},
+            )
+            .then((response) => {
+              setExamineDate(
+                response.data === '0001-01-01T00:00:00'
+                  ? "(ยังไม่มีข้อมูลวันสอบ)"
+                  : new Date(response.data).toDateString(),
+              );
+            })
+            .catch((error) => {
+              if (error.response.status == '401') {
+                alert('Session หมดอายุ');
+                signOut();
+              } else {
+                console.error(error);
+                alert(error);
+              }
+            });
+        }
+      });
     });
+    return unsubscribe;
+  }, [navigation]);
+  // useEffect(() => {
+  //   AsyncStorage.getItem('userData').then((data) => {
+  //     //setLoading(false);
+  //     setUserData(JSON.parse(data));
+  //   });
+  //   //https://localhost:44301/api/InternshipDetails/ExamineDate?id=3
 
-    //return;
-  }, []);
+  //   //return;
+  // }, []);
 
   const DeviceWidth = Dimensions.get('window').width;
 
@@ -42,7 +77,7 @@ export default function MainScreen({navigation}) {
             </Text>
             {userData.permission === 2 ? (
               <Text style={styles.headingTextTestDate}>
-                วันสอบ 29 กุมภาพันธ์ 2561
+                วันสอบ {examineDate}
               </Text>
             ) : null}
           </View>
