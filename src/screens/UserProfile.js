@@ -9,7 +9,7 @@ export default function UserProfile({navigation}) {
   const [userProfile, setUserProfile] = React.useState({});
   const [userData, setUserData] = React.useState({});
 
-  const {signOut} = useContext(AuthContext);
+  const {signOut} = React.useContext(AuthContext);
 
   React.useEffect(() => {
     AsyncStorage.getItem('userData').then((data) => {
