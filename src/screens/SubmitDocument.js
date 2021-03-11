@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -6,9 +6,19 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  PermissionsAndroid,
+  Alert,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {AuthContext} from '../components/Context';
+
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
+
+import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const ItemSeparatorView = () => {
   return (
@@ -24,11 +34,111 @@ const ItemSeparatorView = () => {
   );
 };
 
-function SubmitDocument() {
+function SubmitDocument({navigation}) {
+  const [masterDataSource, setMasterDataSource] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const {signOut} = useContext(AuthContext);
+
+  useEffect(() => {
+    AsyncStorage.getItem('userData').then((data) => {
+      data = JSON.parse(data);
+      const headers = {Authorization: `Bearer ${data.token}`};
+      axios
+        .get('/InternshipFiles/user/' + data.userId, {headers})
+        .then((response) => {
+          //setFilteredDataSource(response.data);
+          setMasterDataSource(response.data);
+          //console.log(response.data);
+        })
+        .catch((error) => {
+          if (error.response.status == '401') {
+            alert('Session หมดอายุ');
+            signOut();
+          } else {
+            console.error(error);
+            alert(error);
+          }
+        });
+    });
+  }, [loading]);
+
+  const requestReadStoragePermission = async (item) => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'TNICOOP ต้องการเข้าถึงพื้นที่จัดเก็บของคุณ',
+          message: 'เพื่อที่จะสามารถอัปโหลดเอกสารได้',
+          buttonPositive: 'ตกลง',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        uploadfile(item.id);
+      } else {
+        Alert.alert(
+          'ไม่สามารถเลือกไฟล์ได้เนื่องจากไม่มีสิทธิ์เข้าถึง',
+          'กรุณาเปิดตั้งค่าแอป แล้วเปิดสิทธิ์การใช้งานที่แอปเรา',
+        );
+        //console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const uploadfile = async (fileid) => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+      });
+      RNFetchBlob.fs
+        .readFile(res.uri, 'base64')
+        .then((file) => {
+          AsyncStorage.getItem('userData').then((data) => {
+            data = JSON.parse(data);
+            const headers = {Authorization: `Bearer ${data.token}`};
+            axios
+              .put(
+                '/InternshipFiles/' + fileid,
+                {
+                  Id: fileid,
+                  File: file,
+                  UpdateBy: data.userId,
+                },
+                {headers},
+              )
+              .then((response) => {
+                // console.log('OK 200');
+                setLoading(!loading);
+              })
+              .catch((error) => {
+                if (error.response.status == '401') {
+                  alert('Session หมดอายุ');
+                  signOut();
+                } else {
+                  console.error(error);
+                  alert(error);
+                }
+              });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <DropDownPicker
+        {/* <DropDownPicker
           items={[
             {label: 'เอกสารสมัครสหกิจศึกษา', value: '1'},
             {label: 'เอกสารสหกิจศึกษา', value: '2'},
@@ -49,24 +159,11 @@ function SubmitDocument() {
               name: items.value,
             })
           }
-        />
+        /> */}
 
         <View style={{marginTop: 60, flexDirection: 'row'}}>
           <FlatList
-            data={[
-              {
-                title1: 'CO-01 ใบสมัครเป็นนักศึกษาสหกิจศึกษา',
-                title2: 'สถานะเอกสาร : ไม่ได้ส่ง',
-                key: 'CO-01',
-                icon: <Icon name="upload" size={30} color="blue" />,
-              },
-              {
-                title1: 'CO-02 Resume',
-                title2: 'สถานะเอกสาร : ไม่ได้ส่ง',
-                key: 'CO-02',
-                icon: <Icon name="upload" size={30} color="blue" />,
-              },
-            ]}
+            data={masterDataSource}
             //ที่ใส่ key ไปแบบนี้เพราะจะจัด style ขออภัย
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -74,9 +171,11 @@ function SubmitDocument() {
               return (
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <Text>
-                    <Text style={styles.textStyle}>{item.title1}</Text>
+                    <Text style={styles.textStyle}>{item.fileTypeDesc}</Text>
                     {'\n'}
-                    <Text style={styles.textStyleInner}>{item.title2}</Text>
+                    <Text style={styles.textStyleInner}>
+                      {'สถานะเอกสาร : ' + item.approveStatusDesc}
+                    </Text>
                   </Text>
                   <View
                     style={{
@@ -85,9 +184,16 @@ function SubmitDocument() {
                       position: 'absolute',
                       marginLeft: 300,
                     }}>
-                    <TouchableOpacity>
-                      <Text style={styles.uploadStyle}>Upload</Text>
-                    </TouchableOpacity>
+                    {item.approveStatus == 1 || item.approveStatus == 4 ? (
+                      <>
+                        <TouchableOpacity
+                          onPress={() => {
+                            requestReadStoragePermission(item);
+                          }}>
+                          <Text style={styles.uploadStyle}>Upload</Text>
+                        </TouchableOpacity>
+                      </>
+                    ) : null}
                   </View>
                 </View>
               );
