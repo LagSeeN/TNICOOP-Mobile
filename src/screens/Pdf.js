@@ -9,7 +9,7 @@ import {
 
 import {AuthContext} from '../components/Context';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Pdf from 'react-native-pdf';
 
