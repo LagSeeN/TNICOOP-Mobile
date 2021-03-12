@@ -81,7 +81,7 @@ export default function UserProfile({navigation}) {
                 ? userProfile.companyName
                 : '(ไม่พบบริษัทที่สหกิจศึกษาในระบบ)'}
             </Text>
-            <Text style={styles.textStyle}>อาจารย์ที่สหกิจศึกษา</Text>
+            <Text style={styles.textStyle}>อาจารย์ที่ปรึกษาสหกิจศึกษา</Text>
             <Text style={styles.textStyleInner}>
               {userProfile.adviserName
                 ? userProfile.adviserName
