@@ -70,7 +70,7 @@ export default function CompanyProfile({navigation, route}) {
             <View style={styles.textView}>
               <View style={styles.fixToText}>
                 <TouchableOpacity
-                  style={[styles.buttonStyle, {backgroundColor: 'yellow'}]}
+                  style={[styles.buttonStyle, {backgroundColor: '#3366FF'}]}
                   onPress={() => {
                     navigation.navigate('AddEditCompany', {
                       id: masterDataSource.id,
@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 24,
     color: 'blue',
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
   },
   textView: {
     marginLeft: 50,
   },
   textStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     fontSize: 16,
     color: 'blue',
     marginBottom: 15,
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'blue',
     marginBottom: 20,
+    fontFamily: 'Prompt-Regular'
   },
   lineStyle: {
     borderWidth: 0.5,
@@ -174,11 +175,12 @@ const styles = StyleSheet.create({
     width: 90,
     borderRadius: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontFamily: 'Prompt-Regular'
   },
   fixToText: {
     flexDirection: 'row',

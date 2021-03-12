@@ -278,39 +278,41 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   heading: {
-    marginTop: 70,
+    marginTop: 30,
     marginBottom: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
   headingText: {
     fontSize: 24,
-    color: 'blue',
-    fontWeight: 'bold',
+    color: 'black',
+    fontFamily: 'Prompt-Bold',
   },
   textView: {
     marginLeft: 30,
     marginRight: 30,
   },
   textStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     fontSize: 16,
-    color: 'blue',
+    color: 'black',
     marginBottom: 15,
   },
   textInputStyle: {
     height: 40,
-    borderColor: 'blue',
-    borderWidth: 2,
+    borderColor: 'black',
+    borderWidth: 1,
     borderRadius: 7,
     marginBottom: 15,
+    fontFamily: 'Prompt-Regular'
   },
   textBigInputStyle: {
-    borderColor: 'blue',
-    borderWidth: 2,
+    borderColor: 'black',
+    borderWidth: 1,
     borderRadius: 7,
     marginBottom: 15,
     textAlignVertical: 'top',
+    fontFamily: 'Prompt-Regular'
   },
   buttonStyle: {
     height: 40,
@@ -322,6 +324,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontFamily: 'Prompt-Regular'
   },
   fixToText: {
     flexDirection: 'row',

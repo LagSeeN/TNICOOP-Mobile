@@ -170,15 +170,15 @@ var styles = StyleSheet.create({
     marginLeft: 60,
     marginTop: 50,
     fontSize: 20,
-    fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'Prompt-Bold'
   },
   headingTextTestDate: {
     marginLeft: 60,
     marginTop: 10,
     fontSize: 14,
-    fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'Prompt-Bold'
   },
   menu: {
     flexDirection: 'row',
@@ -195,6 +195,7 @@ var styles = StyleSheet.create({
   itemTitle: {
     marginTop: 10,
     color: '#3366FF',
+    fontFamily: 'Prompt-Regular'
   },
   // footer: {
   //   flexDirection: 'row',

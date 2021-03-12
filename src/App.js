@@ -74,7 +74,7 @@ function userProfileScreen({Navigation}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -100,7 +100,7 @@ function companyProfileScreen({Navigation, route}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -120,7 +120,7 @@ function searchCompanyScreen({Navigation, route}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
           // headerRight: () => (
           //   <TouchableOpacity
@@ -151,7 +151,7 @@ function contactScreen({Navigation}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -175,7 +175,7 @@ function addEditCompanyScreen({Navigation, route}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -195,7 +195,7 @@ function submitDocument({Navigation, route}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -214,7 +214,7 @@ function studentProfileScreen({Navigation}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />
@@ -236,7 +236,7 @@ function showPdfScreen({Navigation, route}) {
             backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
-          headerTitleStyle: {fontWeight: 'bold'},
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
           headerTitleAlign: 'center',
         }}
       />

@@ -101,15 +101,15 @@ const SearchCompany = ({navigation}) => {
   const ItemView = ({item}) => {
     return (
       <Text style={styles.itemStyle} onPress={() => showCompanyDetail(item)}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+        <Text style={{fontSize: 18, fontFamily: 'Prompt-Bold'}}>
           {item.name.toUpperCase()}
         </Text>
 
         {item.position ? (
           <>
             {'\n'}
-            <Text style={{fontSize: 17}}>ตำแหน่งงาน: </Text>
-            <Text style={{fontSize: 17}}>{item.position}</Text>
+            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>ตำแหน่งงาน: </Text>
+            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>{item.position}</Text>
           </>
         ) : null}
       </Text>
@@ -220,7 +220,9 @@ const SearchCompany = ({navigation}) => {
           ปัญหาที่พบ ข้อความชื่อบริษัทแสดงอยู่ตรงกลางหน้าจอเสมอ
         
         */}
+        <View style={{marginBottom: 20}}>
         <FlatList
+          // contentContainerStyle={{paddingBottom:10}}
           data={filteredDataSource}
           keyExtractor={(index, item) => index.toString() + item}
           ItemSeparatorComponent={ItemSeparatorView}
@@ -228,6 +230,7 @@ const SearchCompany = ({navigation}) => {
           style={{padding: 20}}
           contentContainerStyle={{width: 370}}
         />
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -35,9 +35,9 @@ export default function UserProfile({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.heading}>
+{/*       <View style={styles.heading}>
         <Text style={styles.headingText}>ข้อมูลผู้ใช้</Text>
-      </View>
+      </View> */}
 
       <View style={styles.textView}>
         <Text style={styles.textSpace}>
@@ -117,16 +117,17 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 24,
     color: '#3366FF',
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold'
   },
   textView: {
     marginLeft: 50,
+    marginTop: 80
   },
   textSpace: {
     marginBottom: 20,
   },
   textStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     fontSize: 18,
     color: '#3366FF',
     marginBottom: 15,
@@ -135,5 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black',
     marginBottom: 20,
+    fontFamily: 'Prompt-Regular'
   },
 });

@@ -7,6 +7,7 @@ import {
   FlatList,
   Modal,
   StyleSheet,
+  ScrollView
 } from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -157,7 +158,7 @@ const StudentProfile = ({navigation}) => {
               justifyContent: 'flex-start',
             }}
             arrowColor="black"
-            labelStyle={{color: 'black'}}
+            labelStyle={{color: 'black', fontFamily: 'Prompt-Regular'}}
             dropDownStyle={{backgroundColor: '#fafafa'}}
             onChangeItem={(items) => {
               AsyncStorage.getItem('userData').then((data) => {
@@ -307,7 +308,8 @@ const StudentProfile = ({navigation}) => {
             marginRight: 30,
             textAlign: 'right',
             alignSelf: 'stretch',
-            color: 'blue',
+            color: 'black',
+            fontFamily: 'Prompt-Bold'
           }}>
           ยืนยันเอกสาร
         </Text>
@@ -340,6 +342,7 @@ const StudentProfile = ({navigation}) => {
             //     icon2: <Icon name="times-circle" size={30} color="red" />,
             //   },
             // ]}
+            // contentContainerStyle={{paddingBottom:50}}
             data={masterDataSource}
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -347,11 +350,11 @@ const StudentProfile = ({navigation}) => {
               return (
                 <View style={{flexDirection: 'row'}}>
                   <Text>
-                    <Text style={{fontWeight: 'bold'}}>
+                    <Text style={{fontFamily: 'Prompt-Bold'}}>
                       {item.fileTypeDesc}
                     </Text>
                     {'\n'}
-                    <Text>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
+                    <Text style={{fontFamily: 'Prompt-Regular'}}>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
                   </Text>
                   <View
                     style={{

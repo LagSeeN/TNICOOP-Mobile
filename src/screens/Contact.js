@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 24,
     color: 'black',
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
   },
   textView: {
     marginLeft: 50,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   textStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     fontSize: 18,
     color: 'black',
     marginBottom: 20,
@@ -54,5 +54,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black',
     marginBottom: 10,
+    fontFamily: 'Prompt-Regular'
   },
 });

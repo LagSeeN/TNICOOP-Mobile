@@ -138,6 +138,7 @@ function SubmitDocument({navigation}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
+        <Text style = {{fontSize: 24, color: 'black', fontFamily: 'Prompt-Bold'}}>กรุณาเลือกเอกสารที่ต้องการส่ง</Text>
         {/* <DropDownPicker
           items={[
             {label: 'เอกสารสมัครสหกิจศึกษา', value: '1'},
@@ -161,10 +162,9 @@ function SubmitDocument({navigation}) {
           }
         /> */}
 
-        <View style={{marginTop: 60, flexDirection: 'row'}}>
+        <View style={{marginTop: 50, flexDirection: 'row'}}>
           <FlatList
             data={masterDataSource}
-            //ที่ใส่ key ไปแบบนี้เพราะจะจัด style ขออภัย
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={({item}) => {
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   textStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     color: 'black',
     fontSize: 14,
   },
@@ -223,9 +223,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'black',
     marginTop: 15,
+    fontFamily: 'Prompt-Regular'
   },
   uploadStyle: {
     marginTop: 15,
     color: 'blue',
+    fontFamily: 'Prompt-Regular'
   },
 });

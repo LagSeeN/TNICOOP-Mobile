@@ -9,17 +9,19 @@ export default StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
     color: '#3366FF',
     marginTop: 20,
     marginBottom: 10,
+    fontFamily: 'Prompt-Bold'
   },
   //#endregion
 
   //#region pages/SearchCompany.js
   textInput: {
     height: 40,
+    fontFamily: 'Prompt-Regular',
+    width: 150
   },
   ImageIconStyle: {
     fontSize: 20,
@@ -46,8 +48,9 @@ export default StyleSheet.create({
     width: 200,
     borderRadius: 20,
     marginLeft: 5,
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 30,
+    fontFamily: 'Prompt-Regular'
   },
   searchBtnLeft: {
     color: 'white',
@@ -59,6 +62,8 @@ export default StyleSheet.create({
     borderRadius: 20,
     marginLeft: 5,
     marginTop: 5,
+    marginBottom: 30,
+    fontFamily: 'Prompt-Regular'
   },
   searchBtnLeftandRight: {
     flexDirection: 'row',
@@ -100,6 +105,7 @@ export default StyleSheet.create({
     marginVertical: 10,
     paddingLeft: 25,
     fontSize: 20,
+    fontFamily: 'Prompt-Regular'
   },
   //#endregion
   //#region pages/StudentProfile.js
@@ -125,22 +131,22 @@ export default StyleSheet.create({
     elevation: 5,
   },
   dateStyle: {
-    color: '#3366FF',
-    fontWeight: 'bold',
+    color: 'black',
     textAlign: 'center',
-    borderColor: '#3366FF',
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
     width: 150,
     height: 50,
     textAlignVertical: 'center',
+    fontFamily: 'Prompt-Regular'
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
   },
   titleText: {
-    fontWeight: 'bold',
+    fontFamily: 'Prompt-Bold',
     fontSize: 16,
     color: '#3366FF',
     marginBottom: 5,
@@ -157,6 +163,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     width: 100,
     padding: 10,
+    fontFamily: 'Prompt-Regular'
   },
   itemStyle: {
     marginVertical: 5,

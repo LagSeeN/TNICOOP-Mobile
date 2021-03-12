@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  Image
 } from 'react-native';
 
 import styles from '../Style';
@@ -65,6 +66,7 @@ const Login = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
+      <Image source={require('../asset/COOPLogo1.png')} style={{width: 200, height: 200}}/>
         <Text style={styles.heading}>TNI COOP Application</Text>
         <TextInput
           style={styles.inputUser}
@@ -92,7 +94,7 @@ const Login = ({navigation}) => {
               color: '#FFFFFF',
               fontSize: 18,
               textAlign: 'center',
-              fontFamily: 'Prompt-Regular',
+              fontFamily: 'Prompt-Regular'
             }}>
             Login
           </Text>
