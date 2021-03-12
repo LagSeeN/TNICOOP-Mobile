@@ -25,7 +25,7 @@ export default StyleSheet.create({
   },
   ImageIconStyle: {
     fontSize: 20,
-    color: 'gray',
+    color: 'grey',
   },
   inputIcon: {
     flexDirection: 'row',
@@ -45,11 +45,13 @@ export default StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     height: 40,
-    width: 200,
+    width: 180,
     borderRadius: 20,
-    marginLeft: 5,
+    marginLeft: 10,
     marginTop: 5,
     marginBottom: 30,
+    marginVertical: 10,
+    marginHorizontal: 10,
     fontFamily: 'Prompt-Regular'
   },
   searchBtnLeft: {
@@ -58,11 +60,13 @@ export default StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     height: 40,
-    width: 200,
+    width: 180,
     borderRadius: 20,
-    marginLeft: 5,
+    marginLeft: 15,
     marginTop: 5,
     marginBottom: 30,
+    marginVertical: 10,
+    marginHorizontal: 10,
     fontFamily: 'Prompt-Regular'
   },
   searchBtnLeftandRight: {
@@ -154,10 +158,17 @@ export default StyleSheet.create({
     marginLeft: 30,
     flex: 1,
   },
+  dataText:{
+    fontFamily: 'Prompt-Bold', 
+    fontSize: 16,
+    color: 'black', 
+    flex: 1
+  },
   modalButton: {
-    color: '#3366FF',
+    color: 'white',
     textAlign: 'center',
     marginTop: 20,
+    backgroundColor: '#3366FF',
     borderColor: '#3366FF',
     borderWidth: 1,
     borderRadius: 5,

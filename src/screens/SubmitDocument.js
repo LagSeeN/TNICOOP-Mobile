@@ -211,7 +211,7 @@ function SubmitDocument({navigation}) {
                       textAlign: 'center',
                       alignItems: 'center',
                       position: 'absolute',
-                      marginLeft: 300,
+                      marginLeft: 270,
                     }}>
                     {item.approveStatus == 1 || item.approveStatus == 4 ? (
                       <>
@@ -255,8 +255,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Prompt-Regular',
   },
   uploadStyle: {
-    marginTop: 15,
+    marginTop: 5,
     color: 'blue',
     fontFamily: 'Prompt-Regular',
+    borderWidth: 2,
+    borderColor: 'blue',
+    borderRadius: 7,
+    padding: 10,
+
   },
 });
