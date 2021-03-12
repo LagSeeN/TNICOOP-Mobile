@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   headingText: {
     fontSize: 24,
-    color: 'blue',
+    color: '#3366FF',
     fontWeight: 'bold',
   },
   textView: {
@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
   textStyle: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'blue',
+    color: '#3366FF',
     marginBottom: 15,
   },
   textStyleInner: {
     fontSize: 18,
-    color: 'blue',
+    color: 'black',
     marginBottom: 20,
   },
 });

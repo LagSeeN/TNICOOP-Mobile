@@ -35,7 +35,7 @@ export default function MainScreen({navigation}) {
             .then((response) => {
               setExamineDate(
                 response.data === '0001-01-01T00:00:00'
-                  ? "(ยังไม่มีข้อมูลวันสอบ)"
+                  ? '(ยังไม่มีข้อมูลวันสอบ)'
                   : new Date(response.data).toDateString(),
               );
             })
@@ -85,7 +85,7 @@ export default function MainScreen({navigation}) {
             <TouchableOpacity
               style={styles.item}
               onPress={() => navigation.navigate('UserProfile')}>
-              <Icon name="user" size={60} color="blue" />
+              <Icon name="user" size={60} color="#3366FF" />
               <Text style={styles.itemTitle}>ข้อมูลผู้ใช้</Text>
             </TouchableOpacity>
 
@@ -94,7 +94,7 @@ export default function MainScreen({navigation}) {
               onPress={() => {
                 navigation.navigate('SearchCompany');
               }}>
-              <Icon name="building" size={60} color="blue" />
+              <Icon name="building" size={60} color="#3366FF" />
               <Text style={styles.itemTitle}>รายชื่อบริษัท</Text>
             </TouchableOpacity>
 
@@ -102,7 +102,7 @@ export default function MainScreen({navigation}) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => navigation.navigate('StudentProfile')}>
-                <Icon name="users" size={60} color="blue" />
+                <Icon name="users" size={60} color="#3366FF" />
                 <Text style={styles.itemTitle}>ข้อมูลนักศึกษา</Text>
               </TouchableOpacity>
             ) : null}
@@ -113,7 +113,7 @@ export default function MainScreen({navigation}) {
                 onPress={() => {
                   navigation.navigate('SubmitDocument');
                 }}>
-                <Icon name="copy" size={60} color="blue" />
+                <Icon name="copy" size={60} color="#3366FF" />
                 <Text style={styles.itemTitle}>ส่งเอกสาร</Text>
               </TouchableOpacity>
             ) : null}
@@ -122,7 +122,7 @@ export default function MainScreen({navigation}) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => navigation.navigate('Contact')}>
-                <Icon name="phone" size={60} color="blue" />
+                <Icon name="phone" size={60} color="#3366FF" />
                 <Text style={styles.itemTitle}>ติดต่อ</Text>
               </TouchableOpacity>
             ) : null}
@@ -133,7 +133,7 @@ export default function MainScreen({navigation}) {
                 setUserData({});
                 signOut();
               }}>
-              <Icon name="sign-out" size={60} color="blue" />
+              <Icon name="sign-out" size={60} color="#3366FF" />
               <Text style={styles.itemTitle}>ออกจากระบบ</Text>
             </TouchableOpacity>
           </View>
@@ -164,7 +164,7 @@ var styles = StyleSheet.create({
   },
   heading: {
     height: 130,
-    backgroundColor: 'blue',
+    backgroundColor: '#3366FF',
   },
   headingText: {
     marginLeft: 60,
@@ -194,7 +194,7 @@ var styles = StyleSheet.create({
   },
   itemTitle: {
     marginTop: 10,
-    color: 'blue',
+    color: '#3366FF',
   },
   // footer: {
   //   flexDirection: 'row',

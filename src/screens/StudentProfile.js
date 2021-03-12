@@ -150,14 +150,14 @@ const StudentProfile = ({navigation}) => {
             containerStyle={{height: 40}}
             style={{
               backgroundColor: '#fafafa',
-              width: 300,
-              borderColor: 'blue',
+              width: 350,
+              borderColor: 'black',
             }}
             itemStyle={{
               justifyContent: 'flex-start',
             }}
-            arrowColor="blue"
-            labelStyle={{color: 'blue'}}
+            arrowColor="black"
+            labelStyle={{color: 'black'}}
             dropDownStyle={{backgroundColor: '#fafafa'}}
             onChangeItem={(items) => {
               AsyncStorage.getItem('userData').then((data) => {
@@ -216,18 +216,28 @@ const StudentProfile = ({navigation}) => {
         </View>
 
         <View style={{marginTop: 20, flexDirection: 'row'}}>
-          <Text style={styles.titleText}>ชื่อ {studentDetail.name}</Text>
-        </View>
-
-        <View style={{marginTop: 20, flexDirection: 'row'}}>
           <Text style={styles.titleText}>
-            ชื่อบริษัท {studentDetail.companyName}
+            ชื่อ{' '}
+            <Text style={{fontWeight: 'normal', color: 'black'}}>
+              {studentDetail.name}
+            </Text>
           </Text>
         </View>
 
         <View style={{marginTop: 20, flexDirection: 'row'}}>
-          <Text style={styles.titleText}>วันที่สอบ</Text>
-          <View style={{textAlign: 'left', marginRight: 30, flex: 1}}>
+          <Text style={styles.titleText}>
+            ชื่อบริษัท{' '}
+            <Text style={{fontWeight: 'normal', color: 'black'}}>
+              {studentDetail.companyName}
+            </Text>
+          </Text>
+        </View>
+
+        <View style={{marginTop: 20, flexDirection: 'row'}}>
+          <Text style={[styles.titleText, {width: 100, flex: 0}]}>
+            วันที่สอบ
+          </Text>
+          <View style={{textAlign: 'left', flex: 1}}>
             {studentDetail.userId ? (
               <TouchableOpacity
                 onPress={() => {
@@ -337,7 +347,9 @@ const StudentProfile = ({navigation}) => {
               return (
                 <View style={{flexDirection: 'row'}}>
                   <Text>
-                    <Text>{item.fileTypeDesc}</Text>
+                    <Text style={{fontWeight: 'bold'}}>
+                      {item.fileTypeDesc}
+                    </Text>
                     {'\n'}
                     <Text>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
                   </Text>

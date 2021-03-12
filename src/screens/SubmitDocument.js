@@ -136,7 +136,7 @@ function SubmitDocument({navigation}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
         {/* <DropDownPicker
           items={[

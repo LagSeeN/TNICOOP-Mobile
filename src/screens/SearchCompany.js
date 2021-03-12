@@ -101,11 +101,15 @@ const SearchCompany = ({navigation}) => {
   const ItemView = ({item}) => {
     return (
       <Text style={styles.itemStyle} onPress={() => showCompanyDetail(item)}>
-        {item.name.toUpperCase()}
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          {item.name.toUpperCase()}
+        </Text>
+
         {item.position ? (
           <>
             {'\n'}
-            <Text>ตำแหน่งงาน: </Text> {item.position}
+            <Text style={{fontSize: 17}}>ตำแหน่งงาน: </Text>
+            <Text style={{fontSize: 17}}>{item.position}</Text>
           </>
         ) : null}
       </Text>
@@ -222,6 +226,7 @@ const SearchCompany = ({navigation}) => {
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
           style={{padding: 20}}
+          contentContainerStyle={{width: 370}}
         />
       </View>
     </SafeAreaView>

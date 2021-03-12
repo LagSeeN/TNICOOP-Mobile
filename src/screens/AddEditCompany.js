@@ -256,7 +256,7 @@ export default function AddEditCompany({navigation, route}) {
         <View style={styles.textView}>
           <View style={styles.fixToText}>
             <TouchableOpacity
-              style={[styles.buttonStyle, {backgroundColor: 'blue'}]}
+              style={[styles.buttonStyle, {backgroundColor: '#3366FF'}]}
               onPress={submit}>
               <Text style={styles.buttonText}>ยืนยัน</Text>
             </TouchableOpacity>

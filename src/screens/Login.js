@@ -12,7 +12,7 @@ import {
 import styles from '../Style';
 import axios from 'axios';
 
-import { AuthContext } from "../components/Context";
+import {AuthContext} from '../components/Context';
 
 //import DocumentPicker from "react-native-document-picker";
 
@@ -24,26 +24,25 @@ const Login = ({navigation}) => {
 
   const loginHandle = (username, password) => {
     signIn(username, password);
-  }
+  };
 
   const loginAPI = () => {
     axios
-      .post("https://yostem.ddns.net:8393/api/Users/authentication", {
+      .post('https://yostem.ddns.net:8393/api/Users/authentication', {
         username: username,
-        password: sha256(password)
-      }).then(response => {
+        password: sha256(password),
+      })
+      .then((response) => {
         alert(response.data.token);
-        navigation.navigate("contentStack", {JWT : response.data.token});
-
+        navigation.navigate('contentStack', {JWT: response.data.token});
       })
-      .catch(error => {
-        console.error(error)
+      .catch((error) => {
+        console.error(error);
         alert(error);
-      })
+      });
   };
 
-
-  const FileSelecter = async () =>{
+  const FileSelecter = async () => {
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
@@ -52,7 +51,7 @@ const Login = ({navigation}) => {
         res.uri,
         res.type, // mime type
         res.name,
-        res.size
+        res.size,
       );
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -61,15 +60,14 @@ const Login = ({navigation}) => {
         throw err;
       }
     }
-    
-  }
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <Text style={styles.heading}>TNI COOP Application</Text>
         <TextInput
-          style={styles.textInput}
+          style={styles.inputUser}
           placeholder="Username"
           onChangeText={(textInputUsername) => {
             setUsername(textInputUsername);
@@ -77,7 +75,7 @@ const Login = ({navigation}) => {
         />
         <TextInput
           secureTextEntry={true}
-          style={styles.textInput}
+          style={styles.inputUser}
           placeholder="Password"
           onChangeText={(textInputPassword) => {
             setPassword(textInputPassword);
@@ -89,16 +87,24 @@ const Login = ({navigation}) => {
             // loginAPI();
             loginHandle(username, password);
           }}>
-          <Text style={{color: "#FFFFFF"}}>Login</Text>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontSize: 18,
+              textAlign: 'center',
+              fontFamily: 'Prompt-Regular',
+            }}>
+            Login
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
           onPress={() => {
             FileSelecter();
           }}>
-          <Text>Do Select File</Text>
-        </TouchableOpacity>
+          <Text style={{color: "#FFFFFF",fontSize: 18,textAlign:'center'}}>Do Select File</Text>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

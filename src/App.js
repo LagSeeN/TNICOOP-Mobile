@@ -71,7 +71,7 @@ function userProfileScreen({Navigation}) {
         options={{
           title: 'ข้อมูลผู้ใช้',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -97,7 +97,7 @@ function companyProfileScreen({Navigation, route}) {
         options={{
           title: 'รายละเอียดบริษัท',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -117,7 +117,7 @@ function searchCompanyScreen({Navigation, route}) {
         options={{
           title: 'รายชื่อบริษัท',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -148,7 +148,7 @@ function contactScreen({Navigation}) {
         options={{
           title: 'ข้อมูลติดต่อ',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -172,7 +172,7 @@ function addEditCompanyScreen({Navigation, route}) {
         options={{
           title: 'เพิ่ม/แก้ไขบริษัท',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -192,7 +192,7 @@ function submitDocument({Navigation, route}) {
         options={{
           title: 'เอกสาร',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -211,7 +211,7 @@ function studentProfileScreen({Navigation}) {
         options={{
           title: 'ข้อมูลนักศึกษา',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
@@ -233,7 +233,7 @@ function showPdfScreen({Navigation, route}) {
         options={{
           title: 'PDF',
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#3366FF',
           },
           headerTintColor: 'white',
           headerTitleStyle: {fontWeight: 'bold'},
