@@ -314,7 +314,7 @@ const StudentProfile = ({navigation}) => {
           ยืนยันเอกสาร
         </Text>
 
-        <View style={{marginTop: 20, flexDirection: 'row'}}>
+        <View style={{marginTop: 20, flexDirection: 'row', marginBottom: 40, flex:1}}>
           <FlatList
             // data={[
             //   {
@@ -342,7 +342,7 @@ const StudentProfile = ({navigation}) => {
             //     icon2: <Icon name="times-circle" size={30} color="red" />,
             //   },
             // ]}
-            // contentContainerStyle={{paddingBottom:50}}
+            contentContainerStyle={{paddingBottom:20}}
             data={masterDataSource}
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -350,11 +350,11 @@ const StudentProfile = ({navigation}) => {
               return (
                 <View style={{flexDirection: 'row'}}>
                   <Text>
-                    <Text style={{fontFamily: 'Prompt-Bold'}}>
+                    <Text style={{fontFamily: 'Prompt-Bold', fontSize: 15}}>
                       {item.fileTypeDesc}
                     </Text>
                     {'\n'}
-                    <Text style={{fontFamily: 'Prompt-Regular'}}>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
+                    <Text style={{fontFamily: 'Prompt-Regular', fontSize: 13}}>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
                   </Text>
                   <View
                     style={{

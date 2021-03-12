@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Alert,
+  ScrollView
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -161,9 +162,9 @@ function SubmitDocument({navigation}) {
             })
           }
         /> */}
-
-        <View style={{marginTop: 50, flexDirection: 'row'}}>
+        <View style={{marginTop: 50, flexDirection: 'row', flex:1, marginBottom: 40}}>
           <FlatList
+            contentContainerStyle={{ paddingBottom: 20 }}
             data={masterDataSource}
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -217,10 +218,10 @@ const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'Prompt-Bold',
     color: 'black',
-    fontSize: 14,
+    fontSize: 18,
   },
   textStyleInner: {
-    fontSize: 12,
+    fontSize: 16,
     color: 'black',
     marginTop: 15,
     fontFamily: 'Prompt-Regular'

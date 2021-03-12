@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  ScrollView
 } from 'react-native';
 
 import {AuthContext} from '../components/Context';
@@ -220,15 +221,14 @@ const SearchCompany = ({navigation}) => {
           ปัญหาที่พบ ข้อความชื่อบริษัทแสดงอยู่ตรงกลางหน้าจอเสมอ
         
         */}
-        <View style={{marginBottom: 20}}>
+        <View style={{flex:1, marginBottom: 40}}>
         <FlatList
-          // contentContainerStyle={{paddingBottom:10}}
           data={filteredDataSource}
           keyExtractor={(index, item) => index.toString() + item}
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
-          style={{padding: 20}}
-          contentContainerStyle={{width: 370}}
+          style={{paddingLeft: 20, paddingRight: 20}}
+          contentContainerStyle={{width: 370, paddingBottom:20}}
         />
         </View>
       </View>
