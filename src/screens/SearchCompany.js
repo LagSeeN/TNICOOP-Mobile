@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 import {AuthContext} from '../components/Context';
@@ -109,8 +109,12 @@ const SearchCompany = ({navigation}) => {
         {item.position ? (
           <>
             {'\n'}
-            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>ตำแหน่งงาน: </Text>
-            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>{item.position}</Text>
+            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>
+              ตำแหน่งงาน:{' '}
+            </Text>
+            <Text style={{fontSize: 16, fontFamily: 'Prompt-Regular'}}>
+              {item.position}
+            </Text>
           </>
         ) : null}
       </Text>
@@ -178,27 +182,35 @@ const SearchCompany = ({navigation}) => {
 
           <TouchableOpacity
             onPress={() => {
-              AsyncStorage.getItem('userData').then((data) => {
-                data = JSON.parse(data);
-                const headers = {Authorization: `Bearer ${data.token}`};
-                axios
-                  .post(
-                    '/Companies/search',
-                    {name: searchName, position: searchPos},
-                    {headers},
-                  )
-                  .then((response) => {
-                    //setMasterDataSource(response.data);
-                    navigation.navigate('CompanyProfile', {
-                      id: response.data[0].id,
+              if (searchName != '' || searchPos != '') {
+                AsyncStorage.getItem('userData').then((data) => {
+                  data = JSON.parse(data);
+                  const headers = {Authorization: `Bearer ${data.token}`};
+                  axios
+                    .post(
+                      '/Companies/search',
+                      {name: searchName, position: searchPos},
+                      {headers},
+                    )
+                    .then((response) => {
+                      //setMasterDataSource(response.data);
+                      navigation.navigate('CompanyProfile', {
+                        id: response.data[0].id,
+                      });
+                      //console.log(response.data[0].id);
+                    })
+                    .catch((error) => {
+                      if (error.response.status == '404') {
+                        alert('ไม่พบข้อมูลดังเกล่า');
+                      } else {
+                        console.error(error);
+                        alert(error);
+                      }
                     });
-                    //console.log(response.data[0].id);
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                    alert(error);
-                  });
-              });
+                });
+              } else {
+                return;
+              }
             }}>
             <Text style={styles.searchBtnLeft}>ค้นหา</Text>
           </TouchableOpacity>
@@ -221,15 +233,15 @@ const SearchCompany = ({navigation}) => {
           ปัญหาที่พบ ข้อความชื่อบริษัทแสดงอยู่ตรงกลางหน้าจอเสมอ
         
         */}
-        <View style={{flex:1, marginBottom: 40}}>
-        <FlatList
-          data={filteredDataSource}
-          keyExtractor={(index, item) => index.toString() + item}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
-          style={{paddingLeft: 20, paddingRight: 20}}
-          contentContainerStyle={{width: 370, paddingBottom:20}}
-        />
+        <View style={{flex: 1, marginBottom: 40}}>
+          <FlatList
+            data={filteredDataSource}
+            keyExtractor={(index, item) => index.toString() + item}
+            ItemSeparatorComponent={ItemSeparatorView}
+            renderItem={ItemView}
+            style={{paddingLeft: 20, paddingRight: 20}}
+            contentContainerStyle={{width: 370, paddingBottom: 20}}
+          />
         </View>
       </View>
     </SafeAreaView>
