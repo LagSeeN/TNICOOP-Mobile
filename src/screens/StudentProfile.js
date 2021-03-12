@@ -7,7 +7,8 @@ import {
   FlatList,
   Modal,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -350,11 +351,32 @@ const StudentProfile = ({navigation}) => {
               return (
                 <View style={{flexDirection: 'row'}}>
                   <Text>
+                  <TouchableOpacity
+                      onPress={() => {
+                        Alert.alert(item.fileTypeDesc, item.fileAbout);
+                      }}>
                     <Text style={{fontFamily: 'Prompt-Bold', fontSize: 15}}>
                       {item.fileTypeDesc}
                     </Text>
+                    </TouchableOpacity>
                     {'\n'}
-                    <Text style={{fontFamily: 'Prompt-Regular', fontSize: 13}}>{'สถานะเอกสาร : ' + item.approveStatusDesc}</Text>
+                    <Text style={{fontFamily: 'Prompt-Regular', fontSize: 13}}>{'สถานะเอกสาร : '}
+                    {item.approveStatus == 1 ? (
+                        <Text style={{}}> {item.approveStatusDesc}</Text>
+                      ) : item.approveStatus == 2 ? (
+                        <Text style={{color: '#9d9d9d'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : item.approveStatus == 3 ? (
+                        <Text style={{color: 'green'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : item.approveStatus == 4 ? (
+                        <Text style={{color: 'red'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : null}
+                    </Text>
                   </Text>
                   <View
                     style={{

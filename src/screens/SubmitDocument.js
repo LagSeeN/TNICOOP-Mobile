@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Alert,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -139,7 +139,9 @@ function SubmitDocument({navigation}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.container}>
-        <Text style = {{fontSize: 24, color: 'black', fontFamily: 'Prompt-Bold'}}>กรุณาเลือกเอกสารที่ต้องการส่ง</Text>
+        <Text style={{fontSize: 24, color: 'black', fontFamily: 'Prompt-Bold'}}>
+          กรุณาเลือกเอกสารที่ต้องการส่ง
+        </Text>
         {/* <DropDownPicker
           items={[
             {label: 'เอกสารสมัครสหกิจศึกษา', value: '1'},
@@ -162,9 +164,15 @@ function SubmitDocument({navigation}) {
             })
           }
         /> */}
-        <View style={{marginTop: 50, flexDirection: 'row', flex:1, marginBottom: 40}}>
+        <View
+          style={{
+            marginTop: 50,
+            flexDirection: 'row',
+            flex: 1,
+            marginBottom: 40,
+          }}>
           <FlatList
-            contentContainerStyle={{ paddingBottom: 20 }}
+            contentContainerStyle={{paddingBottom: 20}}
             data={masterDataSource}
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -172,10 +180,30 @@ function SubmitDocument({navigation}) {
               return (
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <Text>
-                    <Text style={styles.textStyle}>{item.fileTypeDesc}</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        Alert.alert(item.fileTypeDesc, item.fileAbout);
+                      }}>
+                      <Text style={styles.textStyle}>{item.fileTypeDesc}</Text>
+                    </TouchableOpacity>
                     {'\n'}
                     <Text style={styles.textStyleInner}>
-                      {'สถานะเอกสาร : ' + item.approveStatusDesc}
+                      {'สถานะเอกสาร : '}
+                      {item.approveStatus == 1 ? (
+                        <Text style={{}}>{item.approveStatusDesc}</Text>
+                      ) : item.approveStatus == 2 ? (
+                        <Text style={{color: '#9d9d9d'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : item.approveStatus == 3 ? (
+                        <Text style={{color: 'green'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : item.approveStatus == 4 ? (
+                        <Text style={{color: 'red'}}>
+                          {item.approveStatusDesc}
+                        </Text>
+                      ) : null}
                     </Text>
                   </Text>
                   <View
@@ -224,11 +252,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     marginTop: 15,
-    fontFamily: 'Prompt-Regular'
+    fontFamily: 'Prompt-Regular',
   },
   uploadStyle: {
     marginTop: 15,
     color: 'blue',
-    fontFamily: 'Prompt-Regular'
+    fontFamily: 'Prompt-Regular',
   },
 });

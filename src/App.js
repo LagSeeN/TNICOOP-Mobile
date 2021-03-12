@@ -321,8 +321,16 @@ export default function App() {
           dispatch({type: 'LOGIN', id: userName, token: userToken});
         })
         .catch((error) => {
-          console.error(error);
-          alert(error);
+          if (error.response.status == '404' || error.response.status == '401') {
+            console.error(error.response.data.message);
+            alert(error.response.data.message);
+          } else if (error.response.status == '400'){
+            alert("กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
+          }
+           else {
+            console.error(error);
+            alert(error);
+          }
         });
     },
     signOut: async () => {

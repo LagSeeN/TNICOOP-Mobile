@@ -62,6 +62,15 @@ export default function CompanyProfile({navigation, route}) {
           <Text style={styles.textStyle}>ที่อยู่</Text>
           <Text style={styles.textStyleInner}>{masterDataSource.address}</Text>
           <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>เบอร์โทรศัพท์</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.phone}</Text>
+          <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>อีเมล</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.email}</Text>
+          <View style={styles.lineStyle}></View>
+          <Text style={styles.textStyle}>เว็บไซต์</Text>
+          <Text style={styles.textStyleInner}>{masterDataSource.website}</Text>
+          <View style={styles.lineStyle}></View>
           <Text style={styles.textStyle}>สวัสดิการ</Text>
           <Text style={styles.textStyleInner}>{masterDataSource.welfare}</Text>
         </View>
