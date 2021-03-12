@@ -8,7 +8,7 @@ import {
   Modal,
   StyleSheet,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -310,12 +310,18 @@ const StudentProfile = ({navigation}) => {
             textAlign: 'right',
             alignSelf: 'stretch',
             color: 'black',
-            fontFamily: 'Prompt-Bold'
+            fontFamily: 'Prompt-Bold',
           }}>
           ยืนยันเอกสาร
         </Text>
 
-        <View style={{marginTop: 20, flexDirection: 'row', marginBottom: 40, flex:1}}>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: 'row',
+            marginBottom: 40,
+            flex: 1,
+          }}>
           <FlatList
             // data={[
             //   {
@@ -343,7 +349,7 @@ const StudentProfile = ({navigation}) => {
             //     icon2: <Icon name="times-circle" size={30} color="red" />,
             //   },
             // ]}
-            contentContainerStyle={{paddingBottom:20}}
+            contentContainerStyle={{paddingBottom: 20}}
             data={masterDataSource}
             keyExtractor={(index, item) => index.toString() + item}
             ItemSeparatorComponent={ItemSeparatorView}
@@ -351,27 +357,31 @@ const StudentProfile = ({navigation}) => {
               return (
                 <View style={{flexDirection: 'row'}}>
                   <Text>
-                  <TouchableOpacity
+                    <TouchableOpacity
                       onPress={() => {
                         Alert.alert(item.fileTypeDesc, item.fileAbout);
                       }}>
-                    <Text style={{fontFamily: 'Prompt-Bold', fontSize: 15}}>
-                      {item.fileTypeDesc}
-                    </Text>
+                      <Text style={{fontFamily: 'Prompt-Bold', fontSize: 15}}>
+                        {item.fileTypeDesc}
+                      </Text>
                     </TouchableOpacity>
                     {'\n'}
-                    <Text style={{fontFamily: 'Prompt-Regular', fontSize: 13}}>{'สถานะเอกสาร : '}
-                    {item.approveStatus == 1 ? (
-                        <Text style={{}}> {item.approveStatusDesc}</Text>
-                      ) : item.approveStatus == 2 ? (
+                    <Text style={{fontFamily: 'Prompt-Regular', fontSize: 13}}>
+                      {'สถานะเอกสาร : '}
+                      {item.approveStatus == 1 ? (
+                        <Text>{item.approveStatusDesc}</Text>
+                      ) : null}
+                      {item.approveStatus == 2 ? (
                         <Text style={{color: '#9d9d9d'}}>
                           {item.approveStatusDesc}
                         </Text>
-                      ) : item.approveStatus == 3 ? (
+                      ) : null}
+                      {item.approveStatus == 3 ? (
                         <Text style={{color: 'green'}}>
                           {item.approveStatusDesc}
                         </Text>
-                      ) : item.approveStatus == 4 ? (
+                      ) : null}
+                      {item.approveStatus == 4 ? (
                         <Text style={{color: 'red'}}>
                           {item.approveStatusDesc}
                         </Text>
