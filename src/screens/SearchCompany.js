@@ -13,7 +13,9 @@ import {AuthContext} from '../components/Context';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Icon from 'react-native-ionicons';
+// import Icon from 'react-native-ionicons';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../Style';
 
@@ -140,7 +142,7 @@ const SearchCompany = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 5}}>
           <View style={styles.inputIcon}>
             <Icon name="search" style={styles.ImageIconStyle} />
             <TextInput

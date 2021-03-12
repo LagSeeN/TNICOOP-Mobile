@@ -173,6 +173,8 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="ชื่อบริษัท"
+            maxLength={300}
+            multiline={true}
             onChangeText={(comName) => setComName(comName)}
             defaultValue={comName}
           />
@@ -182,7 +184,7 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             placeholder="รายละเอียดบริษัท"
             style={styles.textBigInputStyle}
-            maxLength={255}
+            maxLength={1000}
             multiline={true}
             numberOfLines={5}
             onChangeText={(comDesc) => setComDesc(comDesc)}
@@ -195,6 +197,8 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="ตำแหน่งงาน"
+            multiline={true}
+            maxLength={500}
             onChangeText={(comPosition) => setComPosition(comPosition)}
             defaultValue={comPosition}
           />
@@ -205,7 +209,7 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             placeholder="ที่อยู่"
             style={styles.textBigInputStyle}
-            maxLength={255}
+            maxLength={500}
             multiline={true}
             numberOfLines={5}
             onChangeText={(comAddress) => setComAddress(comAddress)}
@@ -218,6 +222,8 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="เบอร์โทร"
+            multiline={true}
+            maxLength={100}
             onChangeText={(comPhone) => setComPhone(comPhone)}
             defaultValue={comPhone}
           />
@@ -228,6 +234,8 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="อีเมล"
+            multiline={true}
+            maxLength={100}
             onChangeText={(comEmail) => setComEmail(comEmail)}
             defaultValue={comEmail}
           />
@@ -238,6 +246,8 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="เว็บไซต์"
+            multiline={true}
+            maxLength={200}
             onChangeText={(comWebsite) => setComWebSite(comWebsite)}
             defaultValue={comWebsite}
           />
@@ -248,6 +258,7 @@ export default function AddEditCompany({navigation, route}) {
           <TextInput
             style={styles.textInputStyle}
             placeholder="สวัสดิการ"
+            multiline={true}
             onChangeText={(comWelfare) => setComWelfare(comWelfare)}
             defaultValue={comWelfare}
           />
@@ -256,14 +267,14 @@ export default function AddEditCompany({navigation, route}) {
         <View style={styles.textView}>
           <View style={styles.fixToText}>
             <TouchableOpacity
+              style={[styles.buttonStyle, {backgroundColor: 'grey'}]}
+              onPress={() => navigation.goBack()}>
+              <Text style={styles.buttonText}>ยกเลิก</Text>
+            </TouchableOpacity> 
+            <TouchableOpacity
               style={[styles.buttonStyle, {backgroundColor: '#3366FF'}]}
               onPress={submit}>
               <Text style={styles.buttonText}>ยืนยัน</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.buttonStyle, {backgroundColor: 'orange'}]}
-              onPress={() => navigation.goBack()}>
-              <Text style={styles.buttonText}>ยกเลิก</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -279,7 +290,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: 30,
-    marginBottom: 50,
+    marginBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -304,7 +315,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 7,
     marginBottom: 15,
-    fontFamily: 'Prompt-Regular'
+    fontFamily: 'Prompt-Regular',
+    paddingLeft: 10
   },
   textBigInputStyle: {
     borderColor: 'black',
@@ -312,11 +324,12 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginBottom: 15,
     textAlignVertical: 'top',
-    fontFamily: 'Prompt-Regular'
+    fontFamily: 'Prompt-Regular',
+    paddingLeft: 10
   },
   buttonStyle: {
-    height: 40,
-    width: 90,
+    height: 50,
+    width: 100,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -330,5 +343,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 40,
+    marginTop: 20
   },
 });

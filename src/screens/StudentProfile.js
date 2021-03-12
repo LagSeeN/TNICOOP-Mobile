@@ -218,21 +218,21 @@ const StudentProfile = ({navigation}) => {
         </View>
 
         <View style={{marginTop: 20, flexDirection: 'row'}}>
-          <Text style={styles.titleText}>
+          <Text style={[styles.titleText, {width: 100, flex: 0}]}>
             ชื่อ{' '}
-            <Text style={{fontWeight: 'normal', color: 'black'}}>
-              {studentDetail.name}
-            </Text>
+          </Text>
+          <Text style={styles.dataText}>
+            {studentDetail.name}
           </Text>
         </View>
 
         <View style={{marginTop: 20, flexDirection: 'row'}}>
-          <Text style={styles.titleText}>
+          <Text style={[styles.titleText, {width: 100, flex: 0}]}>
             ชื่อบริษัท{' '}
-            <Text style={{fontWeight: 'normal', color: 'black'}}>
-              {studentDetail.companyName}
-            </Text>
-          </Text>
+           </Text>
+           <Text style={styles.dataText}>
+            {studentDetail.companyName}
+           </Text>
         </View>
 
         <View style={{marginTop: 20, flexDirection: 'row'}}>
