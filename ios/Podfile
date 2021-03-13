@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'TNICOOP_Mobile' do
+target 'TNICOOP' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -12,7 +12,7 @@ target 'TNICOOP_Mobile' do
 
   pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
 
-  target 'TNICOOP_MobileTests' do
+  target 'TNICOOPTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -27,10 +27,10 @@ target 'TNICOOP_Mobile' do
   end
 end
 
-target 'TNICOOP_Mobile-tvOS' do
-  # Pods for TNICOOP_Mobile-tvOS
+target 'TNICOOP-tvOS' do
+  # Pods for TNICOOP-tvOS
 
-  target 'TNICOOP_Mobile-tvOSTests' do
+  target 'TNICOOP-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

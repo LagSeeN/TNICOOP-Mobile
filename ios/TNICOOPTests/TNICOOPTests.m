@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface TNICOOP_MobileTests : XCTestCase
+@interface TNICOOPTests : XCTestCase
 
 @end
 
-@implementation TNICOOP_MobileTests
+@implementation TNICOOPTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
