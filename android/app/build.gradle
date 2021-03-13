@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.tnicoop_mobile"
+        applicationId "com.lagseen.tnicoop"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
