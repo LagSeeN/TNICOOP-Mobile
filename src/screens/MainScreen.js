@@ -78,7 +78,7 @@ export default function MainScreen({navigation}) {
             </Text>
             {userData.permission === 2 ? (
               <Text style={styles.headingTextTestDate}>
-                วันสอบ {examineDate}
+                วันสอบ: {examineDate}
               </Text>
             ) : null}
           </View>

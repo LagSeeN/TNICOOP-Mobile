@@ -10,8 +10,8 @@ export default function AboutUs({navigation}) {
 
       <View style={styles.textView}>
         <Text style={styles.textStyle}>ออกแบบและพัฒนาส่วนติดต่อผู้ใช้ (UX/UI)</Text>
-        <Text style={styles.textStyleInner}>60121062-8 กัสชมาภรณ์ ลิ้มพงศานุรักษ์</Text>
         <Text style={styles.textStyleInner}>60121029-7 ณัฐชยา ยิ้มถนอม</Text>
+        <Text style={styles.textStyleInner}>60121062-8 กัสชมาภรณ์ ลิ้มพงศานุรักษ์</Text>
         <Text style={styles.textSpace}></Text>
         <Text style={styles.textStyle}>React Native (Front-End)</Text>
         <Text style={styles.textStyleInner}>60121053-7 ดนุพล อินทรานุรักษ์</Text>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Prompt-Bold',
   },
   textView: {
-    marginLeft: 50,
+    marginLeft: 35,
   },
   textSpace: {
     marginBottom: 20,
