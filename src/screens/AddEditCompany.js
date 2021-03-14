@@ -259,6 +259,7 @@ export default function AddEditCompany({navigation, route}) {
             style={styles.textInputStyle}
             placeholder="สวัสดิการ"
             multiline={true}
+            maxLength={300}
             onChangeText={(comWelfare) => setComWelfare(comWelfare)}
             defaultValue={comWelfare}
           />

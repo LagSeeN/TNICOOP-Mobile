@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo, useReducer} from 'react';
-import {View, TouchableOpacity, ActivityIndicator, Text} from 'react-native';
+import {View, TouchableOpacity, ActivityIndicator, Text,Image} from 'react-native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -23,6 +23,7 @@ import AddEditCompany from './screens/AddEditCompany';
 import SubmitDocument from './screens/SubmitDocument';
 import StudentProfile from './screens/StudentProfile';
 import showPdf from './screens/Pdf';
+import AboutUs from './screens/AboutUs';
 
 import styles from './Style';
 
@@ -159,6 +160,26 @@ function contactScreen({Navigation}) {
   );
 }
 
+function aboutUsScreen({Navigation}) {
+  return (
+    <Stack.Navigator initialRouteName="AboutUs">
+      <Stack.Screen
+        name="AboutUs"
+        component={AboutUs}
+        options={{
+          title: 'เกี่ยวกับผู้พัฒนา',
+          headerStyle: {
+            backgroundColor: '#3366FF',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {fontFamily: 'Prompt-Bold'},
+          headerTitleAlign: 'center',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function addEditCompanyScreen({Navigation, route}) {
   return (
     <Stack.Navigator initialRouteName="AddEditCompany">
@@ -259,6 +280,7 @@ const contentStack = ({route}) => {
       <Stack.Screen name="SubmitDocument" component={submitDocument} />
       <Stack.Screen name="StudentProfile" component={studentProfileScreen} />
       <Stack.Screen name="ShowPdf" component={showPdfScreen} />
+      <Stack.Screen name="AboutUs" component={aboutUsScreen} />
     </Stack.Navigator>
   );
 };
@@ -322,13 +344,13 @@ export default function App() {
         })
         .catch((error) => {
           if (error.response.status == '404' || error.response.status == '401') {
-            console.error(error.response.data.message);
+            //console.error(error.response.data.message);
             alert(error.response.data.message);
           } else if (error.response.status == '400'){
             alert("กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
           }
            else {
-            console.error(error);
+            //console.error(error);
             alert(error);
           }
         });
@@ -365,7 +387,8 @@ export default function App() {
           alignItems: 'center',
           borderColor: 'blue',
         }}>
-        <ActivityIndicator size="large" />
+        <Image source={require('./asset/COOPLogo1.png')} style={{width: 200, height: 200}}/>
+        <ActivityIndicator size="large" color="#3366FF" />
       </View>
     );
   }

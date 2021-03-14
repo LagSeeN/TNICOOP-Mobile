@@ -33,8 +33,9 @@ export default function MainScreen({navigation}) {
               {headers},
             )
             .then((response) => {
+              console.log(response.data);
               setExamineDate(
-                response.data === '0001-01-01T00:00:00'
+                response.data === '0001-01-01T00:00:00' || response.data === ''
                   ? '(ยังไม่มีข้อมูลวันสอบ)'
                   : new Date(response.data).toDateString(),
               );
@@ -126,6 +127,15 @@ export default function MainScreen({navigation}) {
                 <Text style={styles.itemTitle}>ติดต่อ</Text>
               </TouchableOpacity>
             ) : null}
+
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => {
+                navigation.navigate('AboutUs');
+               }}>
+              <Icon name="info-circle" size={60} color="#3366FF" />
+              <Text style={styles.itemTitle}>เกี่ยวกับผู้พัฒนา</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.item}

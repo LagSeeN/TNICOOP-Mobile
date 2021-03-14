@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ActivityIndicator
 } from 'react-native';
 // import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +19,7 @@ export default function CompanyProfile({navigation, route}) {
   // const [companyId, setCompanyId] = useState(props.params.companyId);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [permission, setpermission] = useState('');
+  const [loading, setLoading] = useState(true)
 
   const {signOut} = React.useContext(AuthContext);
 
@@ -30,6 +32,7 @@ export default function CompanyProfile({navigation, route}) {
         .get('/Companies/' + route.params.id, {headers})
         .then((response) => {
           setMasterDataSource(response.data);
+          //setLoading(!load);
         })
         .catch((error) => {
           if (error.response.status == '401') {
