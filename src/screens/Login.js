@@ -67,7 +67,7 @@ const Login = ({navigation}) => {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
       <Image source={require('../asset/COOPLogo1.png')} style={{width: 200, height: 200}}/>
-        <Text style={styles.heading}>TNI COOP Application</Text>
+        <Text style={styles.heading}>TNI CO-OP Application</Text>
         <TextInput
           style={styles.inputUser}
           placeholder="Username"

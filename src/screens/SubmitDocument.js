@@ -69,7 +69,7 @@ function SubmitDocument({navigation}) {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         {
-          title: 'TNICOOP ต้องการเข้าถึงพื้นที่จัดเก็บของคุณ',
+          title: 'TNI CO-OP ต้องการเข้าถึงพื้นที่จัดเก็บของคุณ',
           message: 'เพื่อที่จะสามารถอัปโหลดเอกสารได้',
           buttonPositive: 'ตกลง',
         },
