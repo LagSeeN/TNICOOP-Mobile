@@ -54,6 +54,7 @@ function SubmitDocument({navigation}) {
           setMasterDataSource(response.data);
           setAxiosWorking(!axiosWorking);
           //console.log(response.data);
+          setLoading(true)
         })
         .catch((error) => {
           if (error.response.status == '401') {
