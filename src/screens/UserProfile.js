@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View, StyleSheet, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, ActivityIndicator} from 'react-native';
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +8,7 @@ import {AuthContext} from '../components/Context';
 export default function UserProfile({navigation}) {
   const [userProfile, setUserProfile] = React.useState({});
   const [userData, setUserData] = React.useState({});
+  const [loading, setLoading] = React.useState(true)
 
   const {signOut} = React.useContext(AuthContext);
 
@@ -20,6 +21,7 @@ export default function UserProfile({navigation}) {
         .get('/Users/' + data.userId, {headers})
         .then((response) => {
           setUserProfile(response.data);
+          setLoading(!loading);
         })
         .catch((error) => {
           if (error.response.status == '401') {
@@ -35,11 +37,19 @@ export default function UserProfile({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-{/*       <View style={styles.heading}>
-        <Text style={styles.headingText}>ข้อมูลผู้ใช้</Text>
-      </View> */}
-
-      <View style={styles.textView}>
+      {loading ? (<>
+          <View
+            style={[
+              {flex: 1, justifyContent: 'center'},
+              {
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                padding: 10,
+              },
+            ]}>
+            <ActivityIndicator size="large" color="#3366FF" />
+          </View>
+        </>):(<View style={styles.textView}>
         <Text style={styles.textSpace}>
           <Text style={styles.textStyle}>ชื่อ-นามสกุล</Text>
           <Text style={styles.textStyleInner}>
@@ -98,7 +108,13 @@ export default function UserProfile({navigation}) {
             </Text>
           </>
         )}
-      </View>
+      </View>)}
+
+{/*       <View style={styles.heading}>
+        <Text style={styles.headingText}>ข้อมูลผู้ใช้</Text>
+      </View> */}
+
+      
     </SafeAreaView>
   );
 }

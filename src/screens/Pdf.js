@@ -69,7 +69,7 @@ export default function showPdf({navigation, route}) {
                 padding: 10,
               },
             ]}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#3366FF" />
           </View>
         </>
       ) : (

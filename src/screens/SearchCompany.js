@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 
 import {AuthContext} from '../components/Context';
@@ -28,6 +29,7 @@ const SearchCompany = ({navigation}) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [permission, setpermission] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -40,6 +42,7 @@ const SearchCompany = ({navigation}) => {
           .then((response) => {
             setFilteredDataSource(response.data);
             setMasterDataSource(response.data);
+            setLoading(false);
           })
           .catch((error) => {
             if (error.response.status == '401') {
@@ -146,7 +149,7 @@ const SearchCompany = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        <View style={{flexDirection: 'row',marginTop: 5}}>
+        <View style={{flexDirection: 'row', marginTop: 5}}>
           <View style={styles.inputIcon}>
             <Icon name="search" style={styles.ImageIconStyle} />
             <TextInput
@@ -235,16 +238,32 @@ const SearchCompany = ({navigation}) => {
           ปัญหาที่พบ ข้อความชื่อบริษัทแสดงอยู่ตรงกลางหน้าจอเสมอ
         
         */}
-        <View style={{flex: 1, marginBottom: 40}}>
-          <FlatList
-            data={filteredDataSource}
-            keyExtractor={(index, item) => index.toString() + item}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
-            style={{paddingLeft: 20, paddingRight: 20}}
-            contentContainerStyle={{width: 370, paddingBottom: 20}}
-          />
-        </View>
+        {loading ? (
+          <>
+            <View
+              style={[
+                {flex: 1, justifyContent: 'center'},
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  padding: 10,
+                },
+              ]}>
+              <ActivityIndicator size="large" color="#3366FF" />
+            </View>
+          </>
+        ) : (
+          <View style={{flex: 1, marginBottom: 40}}>
+            <FlatList
+              data={filteredDataSource}
+              keyExtractor={(index, item) => index.toString() + item}
+              ItemSeparatorComponent={ItemSeparatorView}
+              renderItem={ItemView}
+              style={{paddingLeft: 20, paddingRight: 20}}
+              contentContainerStyle={{width: 370, paddingBottom: 20}}
+            />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );

@@ -9,6 +9,7 @@ import {
   PermissionsAndroid,
   Alert,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -38,6 +39,7 @@ const ItemSeparatorView = () => {
 function SubmitDocument({navigation}) {
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [axiosWorking, setAxiosWorking] = useState(true);
 
   const {signOut} = useContext(AuthContext);
 
@@ -50,6 +52,7 @@ function SubmitDocument({navigation}) {
         .then((response) => {
           //setFilteredDataSource(response.data);
           setMasterDataSource(response.data);
+          setAxiosWorking(!axiosWorking);
           //console.log(response.data);
         })
         .catch((error) => {
@@ -164,72 +167,88 @@ function SubmitDocument({navigation}) {
             })
           }
         /> */}
-        <View
-          style={{
-            marginTop: 50,
-            flexDirection: 'row',
-            flex: 1,
-            marginBottom: 40,
-          }}>
-          <FlatList
-            contentContainerStyle={{paddingBottom: 20}}
-            data={masterDataSource}
-            keyExtractor={(index, item) => index.toString() + item}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={({item}) => {
-              return (
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        Alert.alert(item.fileTypeDesc, item.fileAbout);
-                      }}>
-                      <Text style={styles.textStyle}>{item.fileTypeDesc}</Text>
-                    </TouchableOpacity>
-                    {'\n'}
-                    <Text style={styles.textStyleInner}>
-                      {'สถานะเอกสาร : '}
-                      {item.approveStatus == 1 ? (
-                        <Text style={{}}>{item.approveStatusDesc}</Text>
-                      ) : item.approveStatus == 2 ? (
-                        <Text style={{color: '#9d9d9d'}}>
-                          {item.approveStatusDesc}
+        {axiosWorking ? (
+          <View
+            style={[
+              {flex: 1, justifyContent: 'center'},
+              {
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                padding: 10,
+              },
+            ]}>
+            <ActivityIndicator size="large" color="#3366FF" />
+          </View>
+        ) : (
+          <View
+            style={{
+              marginTop: 50,
+              flexDirection: 'row',
+              flex: 1,
+              marginBottom: 40,
+            }}>
+            <FlatList
+              contentContainerStyle={{paddingBottom: 20}}
+              data={masterDataSource}
+              keyExtractor={(index, item) => index.toString() + item}
+              ItemSeparatorComponent={ItemSeparatorView}
+              renderItem={({item}) => {
+                return (
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          Alert.alert(item.fileTypeDesc, item.fileAbout);
+                        }}>
+                        <Text style={styles.textStyle}>
+                          {item.fileTypeDesc}
                         </Text>
-                      ) : item.approveStatus == 3 ? (
-                        <Text style={{color: 'green'}}>
-                          {item.approveStatusDesc}
-                        </Text>
-                      ) : item.approveStatus == 4 ? (
-                        <Text style={{color: 'red'}}>
-                          {item.approveStatusDesc}
-                        </Text>
-                      ) : null}
+                      </TouchableOpacity>
+                      {'\n'}
+                      <Text style={styles.textStyleInner}>
+                        {'สถานะเอกสาร : '}
+                        {item.approveStatus == 1 ? (
+                          <Text style={{}}>{item.approveStatusDesc}</Text>
+                        ) : item.approveStatus == 2 ? (
+                          <Text style={{color: '#9d9d9d'}}>
+                            {item.approveStatusDesc}
+                          </Text>
+                        ) : item.approveStatus == 3 ? (
+                          <Text style={{color: 'green'}}>
+                            {item.approveStatusDesc}
+                          </Text>
+                        ) : item.approveStatus == 4 ? (
+                          <Text style={{color: 'red'}}>
+                            {item.approveStatusDesc}
+                          </Text>
+                        ) : null}
+                      </Text>
                     </Text>
-                  </Text>
-                  <View
-                    style={{
-                      textAlign: 'center',
-                      alignItems: 'center',
-                      position: 'absolute',
-                      marginLeft: 270,
-                    }}>
-                    {item.approveStatus == 1 || item.approveStatus == 4 ? (
-                      <>
-                        <TouchableOpacity
-                          onPress={() => {
-                            requestReadStoragePermission(item);
-                          }}>
-                          <Text style={styles.uploadStyle}>Upload</Text>
-                        </TouchableOpacity>
-                      </>
-                    ) : null}
+                    <View
+                      style={{
+                        textAlign: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        marginLeft: 270,
+                      }}>
+                      {item.approveStatus == 1 || item.approveStatus == 4 ? (
+                        <>
+                          <TouchableOpacity
+                            onPress={() => {
+                              requestReadStoragePermission(item);
+                            }}>
+                            <Text style={styles.uploadStyle}>Upload</Text>
+                          </TouchableOpacity>
+                        </>
+                      ) : null}
+                    </View>
                   </View>
-                </View>
-              );
-            }}
-            style={{paddingLeft: 30, paddingRight: 30}}
-          />
-        </View>
+                );
+              }}
+              style={{paddingLeft: 30, paddingRight: 30}}
+            />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -262,6 +281,5 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderRadius: 7,
     padding: 10,
-
   },
 });

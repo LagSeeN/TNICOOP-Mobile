@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
-  Image
+  Image,
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from '../Style';
@@ -23,50 +24,32 @@ const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  //const [loading, setLoading] = useState(false);
+
   const loginHandle = (username, password) => {
     signIn(username, password);
-  };
-
-  const loginAPI = () => {
-    axios
-      .post('https://yostem.ddns.net:8393/api/Users/authentication', {
-        username: username,
-        password: sha256(password),
-      })
-      .then((response) => {
-        alert(response.data.token);
-        navigation.navigate('contentStack', {JWT: response.data.token});
-      })
-      .catch((error) => {
-        console.error(error);
-        alert(error);
-      });
-  };
-
-  const FileSelecter = async () => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
-      });
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.name,
-        res.size,
-      );
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker, exit any dialogs or menus and move on
-      } else {
-        throw err;
-      }
-    }
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-      <Image source={require('../asset/COOPLogo1.png')} style={{width: 200, height: 200}}/>
+        {/* {loading ? (
+          <View
+            style={[
+              {flex: 1, justifyContent: 'center'},
+              {
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                padding: 10,
+              },
+            ]}>
+            <ActivityIndicator size="large" color="#3366FF" />
+          </View>
+        ) : null} */}
+        <Image
+          source={require('../asset/COOPLogo1.png')}
+          style={{width: 200, height: 200}}
+        />
         <Text style={styles.heading}>TNI CO-OP Application</Text>
         <TextInput
           style={styles.inputUser}
@@ -86,15 +69,24 @@ const Login = ({navigation}) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            // loginAPI();
+            if (!username) {
+              alert('กรุณากรอกชื่อผู้ใช้');
+              return;
+            }
+            if (!password) {
+              alert('กรุณากรอกรหัสผ่าน');
+              return;
+            }
+
             loginHandle(username, password);
+            //setLoading(!loading);
           }}>
           <Text
             style={{
               color: '#FFFFFF',
               fontSize: 18,
               textAlign: 'center',
-              fontFamily: 'Prompt-Regular'
+              fontFamily: 'Prompt-Regular',
             }}>
             Login
           </Text>
