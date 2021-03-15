@@ -217,7 +217,7 @@ const SearchCompany = ({navigation}) => {
                 return;
               }
             }}>
-            <Text style={styles.searchBtnLeft}>ค้นหา</Text>
+            <Text style={styles.searchBtnLeft}>ค้นหาทันที</Text>
           </TouchableOpacity>
         </View>
 
