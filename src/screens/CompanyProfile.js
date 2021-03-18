@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   headingText: {
     fontSize: 24,
-    color: 'blue',
+    color: 'black',
     fontFamily: 'Prompt-Bold',
   },
   textView: {
@@ -163,18 +163,18 @@ const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'Prompt-Bold',
     fontSize: 16,
-    color: 'blue',
+    color: 'black',
     marginBottom: 15,
   },
   textStyleInner: {
     fontSize: 16,
-    color: 'blue',
+    color: 'black',
     marginBottom: 20,
     fontFamily: 'Prompt-Regular'
   },
   lineStyle: {
     borderWidth: 0.5,
-    borderColor: 'blue',
+    borderColor: 'black',
     marginRight: 50,
     marginBottom: 15,
   },
