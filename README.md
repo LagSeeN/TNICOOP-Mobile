@@ -31,7 +31,7 @@ Student Info UI (Teacher)
 
 ![enter image description here](https://i.imgur.com/dSjTsyWl.png)
 
-##Team
+## Team
 <table>
   <tr>
     <td align="center"><a href="https://github.com/LagSeeN"><img src="https://avatars1.githubusercontent.com/u/19259262?v=4" width="100px;" alt=""/><br /><sub><b>LagSeeN</b></sub></a><br />Danupol Intranurux<br />Frontend</td>
