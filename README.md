@@ -2,9 +2,11 @@
 
 Mobile Application for cooperative students looking for a job
 
-## Installation
+## Requirements
 
-[Setting up the development environment](https://reactnative.dev/docs/environment-setup)
+[React Native](https://reactnative.dev/docs/environment-setup)
+
+## Installation
 
 ```bash
 npm install
